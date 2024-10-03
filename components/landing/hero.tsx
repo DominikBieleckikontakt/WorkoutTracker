@@ -1,9 +1,46 @@
 import React from "react";
 import { Button } from "../ui/button";
+import Image from "next/image";
 
 const Hero = () => {
   return (
-    <div>
+    <div className="mb-48">
+      <div className="relative">
+        <Image
+          src="/icons/bicycle_icon.png"
+          alt="bicycle"
+          width={60}
+          height={60}
+          className="absolute -top-16 left-12 opacity-50 2xl:opacity-100 2xl:-top-8 2xl:left-36 bg-red-100 rounded-full"
+        />
+      </div>
+      <div className="relative">
+        <Image
+          src="/icons/boot_icon.png"
+          alt="bicycle"
+          width={70}
+          height={70}
+          className="absolute top-64 left-24 opacity-50 2xl:opacity-100 2xl:top-64 2xl:left-80 bg-white shadow-lg rounded-full"
+        />
+      </div>
+      <div className="relative">
+        <Image
+          src="/icons/racket_icon.png"
+          alt="bicycle"
+          width={50}
+          height={50}
+          className="absolute right-16 -z-10 -top-16 opacity-50 2xl:opacity-100 2xl:top-56 2xl:right-80 bg-white shadow-lg rounded-full p-1"
+        />
+      </div>
+      <div className="relative">
+        <Image
+          src="/icons/salad_icon.png"
+          alt="bicycle"
+          width={70}
+          height={70}
+          className="absolute top-72 right-16 opacity-50 2xl:opacity-100 2xl:top-3 2xl:right-36 bg-green-100 rounded-full p-3"
+        />
+      </div>
       <div className="max-w-[1100px] mx-5 md:mx-auto">
         <h1 className="font-thin text-5xl text-center mt-48 md:text-6xl lg:text-8xl ">
           Your Health, <span className="font-semibold">Simplified</span>
@@ -15,7 +52,7 @@ const Hero = () => {
           Stay motivated and reach your fitness goals faster.
         </p>
         <div className="flex gap-5 justify-center mt-8">
-          <Button className="rounded-xl" size="lg">
+          <Button className="rounded-xl z-10" size="lg">
             Get started
           </Button>
           <Button variant="outline" className="rounded-xl" size="lg">

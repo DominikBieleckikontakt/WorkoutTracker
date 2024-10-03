@@ -68,40 +68,37 @@ const Navbar = () => {
           <div className="hidden md:flex space-x-8 justify-center flex-1">
             <Link
               href="#"
-              className="text-lg font-medium text-gray-700 hover:text-gray-900"
+              className="text-lg font-medium text-gray-600 hover:text-black duration-300"
             >
               Home
             </Link>
             <Link
               href="#"
-              className="text-lg font-medium text-gray-700 hover:text-gray-900"
+              className="text-lg font-medium text-gray-700 hover:text-black duration-300"
             >
               Features
             </Link>
             <Link
               href="#"
-              className="text-lg font-medium text-gray-700 hover:text-gray-900"
+              className="text-lg font-medium text-gray-700 hover:text-black duration-300"
             >
               Pricing
             </Link>
             <Link
               href="#"
-              className="text-lg font-medium text-gray-700 hover:text-gray-900"
+              className="text-lg font-medium text-gray-700 hover:text-black duration-300"
             >
               Blog
             </Link>
             <Link
               href="#"
-              className="text-lg font-medium text-gray-700 hover:text-gray-900"
+              className="text-lg font-medium text-gray-700 hover:text-black duration-300"
             >
               Contact
             </Link>
           </div>
           <div className="hidden md:flex justify-end">
-            <Button
-              asChild
-              className="px-5 py-2 border border-transparent text-md font-medium rounded-md text-white bg-primary hover:bg-primary-dark"
-            >
+            <Button asChild className="rounded-xl z-10">
               <Link href="#" className="">
                 Get Started
               </Link>
@@ -120,45 +117,44 @@ const Navbar = () => {
         leaveTo="translate-x-full opacity-0"
       >
         <div className="md:hidden backdrop-blur-md">
-          <div className="bg-white/90 backdrop-blur-md absolute right-0 w-2/3 h-screen z-40 p-6 transition-transform duration-300 ease-in-out">
+          <div className="bg-white/90 backdrop-blur-md absolute right-0 w-2/3 h-screen z-40 p-6 transition-transform duration-300 ease-in-out top-5">
             <div className="flex flex-col space-y-4">
               <Link
-                href="/link1"
-                className="text-gray-800 hover:text-gray-500 link"
+                href="#"
+                className="text-lg font-medium text-gray-600 hover:text-black duration-300"
               >
-                Link 1
+                Home
               </Link>
               <Link
-                href="/link2"
-                className="text-gray-800 hover:text-gray-500 link"
+                href="#"
+                className="text-lg font-medium text-gray-700 hover:text-black duration-300"
               >
-                Link 2
+                Features
               </Link>
               <Link
-                href="/link3"
-                className="text-gray-800 hover:text-gray-500 link"
+                href="#"
+                className="text-lg font-medium text-gray-700 hover:text-black duration-300"
               >
-                Link 3
+                Pricing
               </Link>
               <Link
-                href="/link4"
-                className="text-gray-800 hover:text-gray-500 link"
+                href="#"
+                className="text-lg font-medium text-gray-700 hover:text-black duration-300"
               >
-                Link 4
+                Blog
               </Link>
               <Link
-                href="/link5"
-                className="text-gray-800 hover:text-gray-500 link"
+                href="#"
+                className="text-lg font-medium text-gray-700 hover:text-black duration-300"
               >
-                Link 5
-              </Link>
-              <Link
-                href="/button"
-                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 link"
-              >
-                Button
+                Contact
               </Link>
             </div>
+            <Button asChild className="rounded-xl z-10 mt-5 w-full">
+              <Link href="#" className="">
+                Get Started
+              </Link>
+            </Button>
           </div>
         </div>
       </Transition>
