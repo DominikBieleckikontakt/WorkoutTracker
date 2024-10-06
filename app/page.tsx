@@ -5,6 +5,8 @@ import Hero from "@/components/landing/hero";
 import Screens from "@/components/landing/screens";
 import Sponsors from "@/components/landing/sponsors";
 import Statscard from "@/components/landing/statscard";
+import Choice from "@/components/landing/choice";
+import Productivity from "@/components/landing/productivity";
 
 export default function Home() {
   return (
@@ -15,6 +17,8 @@ export default function Home() {
         <Screens />
         <Sponsors />
         <Statscard />
+        <Choice />
+        <Productivity />
       </main>
     </>
   );

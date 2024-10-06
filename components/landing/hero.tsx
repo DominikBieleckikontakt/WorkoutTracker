@@ -52,7 +52,10 @@ const Hero = () => {
           Stay motivated and reach your fitness goals faster.
         </p>
         <div className="flex gap-5 justify-center mt-8">
-          <Button className="rounded-xl z-10" size="lg">
+          <Button
+            className="rounded-xl z-10 relative after:content-[''] after:absolute after:w-full after:h-full after:-z-10 after:rounded-lg after:bg-primary after:blur-sm"
+            size="lg"
+          >
             Get started
           </Button>
           <Button variant="outline" className="rounded-xl" size="lg">
