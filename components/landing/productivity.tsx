@@ -3,27 +3,32 @@ import Container from "./container";
 import Image from "next/image";
 import { Button } from "../ui/button";
 
-const ProductivityCard = ({ className }: { className?: string }) => {
+const ProductivityCard = ({
+  className,
+  imageSrc,
+  title,
+  subtitle,
+}: {
+  className?: string;
+  imageSrc?: string;
+  title: string;
+  subtitle: string;
+}) => {
   return (
     <div
       className={`bg-white shadow-sm hover:shadow-lg duration-300 rounded-lg ${className}`}
     >
       <div className="bg-gray-100 rounded-t-lg flex justify-center items-center h-64">
         <Image
-          src="/icons/image_placeholder.png"
+          src={imageSrc || "/icons/image_placeholder.png"}
           alt="placeholder"
           width={100}
           height={100}
         />
       </div>
       <div className="p-5">
-        <h3 className="text-xl font-semibold">Some text</h3>
-        <p className="text-gray-500">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium
-          atque architecto labore a dolores laborum cupiditate repudiandae,
-          reiciendis ratione officia tempora obcaecati. Ullam voluptatum ducimus
-          laudantium culpa ex repudiandae praesentium?
-        </p>
+        <h3 className="text-xl font-semibold">{title}</h3>
+        <p className="text-gray-500 font-light mt-2">{subtitle}</p>
       </div>
     </div>
   );
@@ -45,13 +50,28 @@ const Productivity = () => {
       </div>
       <div className="space-y-10">
         <div className="flex gap-10 flex-col lg:flex-row">
-          <ProductivityCard />
-          <ProductivityCard />
+          <ProductivityCard
+            title="Customizable Workout Plans"
+            subtitle="Tailor your workout routines to fit your unique goals and preferences, with easy-to-edit plans created by top trainers."
+          />
+          <ProductivityCard
+            title="Progress Tracking"
+            subtitle="Monitor your fitness progress with real-time updates on calories burned, steps taken, and muscle mass gained."
+          />
         </div>
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
-          <ProductivityCard />
-          <ProductivityCard />
-          <ProductivityCard />
+          <ProductivityCard
+            title="Meal Prep Integration"
+            subtitle="Plan and track your meals alongside your workouts for a holistic approach to health."
+          />
+          <ProductivityCard
+            title="Body Analysis Insights"
+            subtitle="Track your weight, BMI, calories burned to improve your fitness results."
+          />
+          <ProductivityCard
+            title="Smart Workout Scheduler"
+            subtitle="Easily plan and organize your workouts and activies with a clear, daily timeline"
+          />
         </div>
       </div>
       <div className="text-center">

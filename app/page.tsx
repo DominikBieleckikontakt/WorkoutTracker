@@ -7,6 +7,9 @@ import Sponsors from "@/components/landing/sponsors";
 import Statscard from "@/components/landing/statscard";
 import Choice from "@/components/landing/choice";
 import Productivity from "@/components/landing/productivity";
+import Tabs from "@/components/landing/tabs";
+import Testimonials from "@/components/landing/testimonials";
+import Plans from "@/components/landing/plans";
 
 export default function Home() {
   return (
@@ -19,6 +22,9 @@ export default function Home() {
         <Statscard />
         <Choice />
         <Productivity />
+        <Tabs />
+        <Testimonials />
+        <Plans />
       </main>
     </>
   );

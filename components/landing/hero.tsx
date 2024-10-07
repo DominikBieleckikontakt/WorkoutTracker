@@ -53,12 +53,16 @@ const Hero = () => {
         </p>
         <div className="flex gap-5 justify-center mt-8">
           <Button
-            className="rounded-xl z-10 relative after:content-[''] after:absolute after:w-full after:h-full after:-z-10 after:rounded-lg after:bg-primary after:blur-sm"
+            className="rounded-xl hover:bg-primary/70 duration-300 z-10 relative after:content-[''] after:absolute after:w-full after:h-full after:-z-10 after:rounded-lg after:bg-primary after:blur-sm"
             size="lg"
           >
             Get started
           </Button>
-          <Button variant="outline" className="rounded-xl" size="lg">
+          <Button
+            variant="outline"
+            className="rounded-xl hover:bg-black/5 duration-300"
+            size="lg"
+          >
             Contact Sales
           </Button>
         </div>
