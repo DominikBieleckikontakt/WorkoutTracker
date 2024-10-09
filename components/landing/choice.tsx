@@ -31,29 +31,29 @@ const Choice = () => {
     <Container className="flex flex-col xl:flex-row justify-between max-xl:gap-10 my-36">
       <div className="flex flex-col justify-center xl:max-w-[30rem] gap-2">
         <h3 className="font-extralight text-4xl lg:text-5xl">
-          The <span className="font-semibold">Smarter Choice</span> for Health &
-          Fitness
+          Why Choose <span className="font-semibold">PulseFit</span>
+          <span className="text-primary font-semibold">?</span>
         </h3>
         <p className="text-gray-500 text-md">
-          Reach your fitness goals with personalized plans and easy tracking,
-          all in one simple platform.
+          Explore powerful features that help you stay consistent, improve
+          performance, and reach your fitness milestones.
         </p>
       </div>
       <div className="grid lg:grid-cols-2 gap-5">
         <ChoiceCard
           iconSrc="/icons/biceps_icon.png"
-          title="All-in-One Fitness Solution"
-          subtitle="Track workouts, meals and hydration all in one app."
+          title="Achievements & Challenges"
+          subtitle="Get motivated with streaks, badges, and competitive challenges—alone or with friends."
         />
         <ChoiceCard
           iconSrc="/icons/config_icon.png"
-          title="Personalized Experience"
-          subtitle="Tailor workout plans and goals to your fitness level."
+          title="Personalized Workout Plans"
+          subtitle="Custom training schedules designed around your goals, fitness level, and daily routine."
         />
         <ChoiceCard
           iconSrc="/icons/chart_icon.png"
-          title="Real-Time Progress Updates"
-          subtitle="See live updates on calories, steps, and body composition."
+          title="Progress Tracking & Insights"
+          subtitle="Monitor every workout and see detailed insights into your improvements and personal bests."
         />
         <ChoiceCard
           iconSrc="/icons/phone_icon.png"

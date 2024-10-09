@@ -7,6 +7,13 @@ import { Transition } from "@headlessui/react";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Smooth scroll effect
+    });
+  };
+
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -18,7 +25,7 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex justify-start">
             <Link href="#" className="text-2xl font-semibold">
-              Fitly<span className="text-primary">.</span>
+              PulseFit<span className="text-primary">.</span>
             </Link>
           </div>
           {/* Hamburger menu (mobile) */}
@@ -66,29 +73,23 @@ const Navbar = () => {
           </div>
           {/* Links and button on larger screens */}
           <div className="hidden md:flex space-x-8 justify-center flex-1">
-            <Link
-              href="#"
-              className="text-lg font-medium text-gray-600 hover:text-black duration-300"
+            <div
+              className="text-lg font-medium text-gray-600 hover:text-black duration-300 cursor-pointer"
+              onClick={scrollToTop}
             >
               Home
-            </Link>
+            </div>
             <Link
-              href="#"
+              href="#features"
               className="text-lg font-medium text-gray-700 hover:text-black duration-300"
             >
               Features
             </Link>
             <Link
-              href="#"
+              href="#pricing"
               className="text-lg font-medium text-gray-700 hover:text-black duration-300"
             >
               Pricing
-            </Link>
-            <Link
-              href="#"
-              className="text-lg font-medium text-gray-700 hover:text-black duration-300"
-            >
-              Blog
             </Link>
             <Link
               href="#"
@@ -117,7 +118,7 @@ const Navbar = () => {
         leaveTo="translate-x-full opacity-0"
       >
         <div className="md:hidden backdrop-blur-md">
-          <div className="bg-white/90 backdrop-blur-md absolute right-0 w-2/3 h-screen z-40 p-6 transition-transform duration-300 ease-in-out top-5">
+          <div className="bg-white/95 backdrop-blur-md absolute right-0 w-2/3 h-screen z-40 p-6 transition-transform duration-300 ease-in-out top-5">
             <div className="flex flex-col space-y-4">
               <Link
                 href="#"
@@ -126,22 +127,16 @@ const Navbar = () => {
                 Home
               </Link>
               <Link
-                href="#"
+                href="#features"
                 className="text-lg font-medium text-gray-700 hover:text-black duration-300"
               >
                 Features
               </Link>
               <Link
-                href="#"
+                href="#pricing"
                 className="text-lg font-medium text-gray-700 hover:text-black duration-300"
               >
                 Pricing
-              </Link>
-              <Link
-                href="#"
-                className="text-lg font-medium text-gray-700 hover:text-black duration-300"
-              >
-                Blog
               </Link>
               <Link
                 href="#"

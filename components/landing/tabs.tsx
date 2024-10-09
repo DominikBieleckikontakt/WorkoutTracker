@@ -5,7 +5,7 @@ import Container from "./container";
 
 const Tabs = () => {
   return (
-    <Container className="flex justify-center items-center flex-col lg:flex-row lg:justify-between gap-10 my-24">
+    <Container className="flex justify-center items-center flex-col lg:flex-row lg:justify-between gap-10 my-4">
       <div className="space-y-8">
         <h3 className="font-extralight text-4xl lg:text-5xl">
           <span className="font-semibold">Seamless</span> Integration
@@ -36,6 +36,7 @@ const Tabs = () => {
           alt="placeholder"
           width={100}
           height={100}
+          className="opacity-30"
         />
       </div>
     </Container>

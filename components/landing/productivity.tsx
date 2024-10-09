@@ -24,6 +24,7 @@ const ProductivityCard = ({
           alt="placeholder"
           width={100}
           height={100}
+          className="opacity-30"
         />
       </div>
       <div className="p-5">
@@ -36,7 +37,7 @@ const ProductivityCard = ({
 
 const Productivity = () => {
   return (
-    <Container className="space-y-16">
+    <Container className="space-y-16 my-24" id="features">
       <div className="text-center space-y-6">
         <h3 className="font-extralight text-4xl lg:text-5xl">
           Tools to <span className="font-semibold">Elevate</span> Your

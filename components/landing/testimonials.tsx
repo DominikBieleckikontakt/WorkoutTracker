@@ -27,7 +27,7 @@ const Testimonial = ({
           alt="avatar"
           width={50}
           height={50}
-          className="rounded-full bg-gray-100 p-1"
+          className="rounded-full bg-gray-100 p-1 opacity-30"
         />
         <div>
           <h5 className="font-semibold">{userName}</h5>
@@ -52,12 +52,11 @@ const Testimonials = () => {
     <Container className="space-y-16 my-24 overflow-hidden relative">
       <div className="text-center space-y-6">
         <h3 className="font-extralight text-4xl lg:text-5xl">
-          Real <span className="font-semibold">Results</span> From Real{" "}
-          <span className="font-semibold">Users</span>
+          Transformations That <span className="font-semibold">Inspire</span>
         </h3>
         <p className="text-gray-500 lg:mx-24 xl:mx-64">
-          Hear from our fitness community about how our platform has helped them
-          transform their health and fitness journey.
+          Real stories from users who achieved their fitness goals with
+          PulseFit.
         </p>
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -72,7 +71,7 @@ const Testimonials = () => {
           />
         ))}
       </div>
-      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-b from-transparent to-white pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-b from-transparent to-background pointer-events-none"></div>
     </Container>
   );
 };

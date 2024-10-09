@@ -10,6 +10,9 @@ import Productivity from "@/components/landing/productivity";
 import Tabs from "@/components/landing/tabs";
 import Testimonials from "@/components/landing/testimonials";
 import Plans from "@/components/landing/plans";
+import FAQ from "@/components/landing/faq";
+import Banner from "@/components/landing/banner";
+import Footer from "@/components/ui/footer";
 
 export default function Home() {
   return (
@@ -25,6 +28,9 @@ export default function Home() {
         <Tabs />
         <Testimonials />
         <Plans />
+        <FAQ />
+        <Banner />
+        <Footer />
       </main>
     </>
   );

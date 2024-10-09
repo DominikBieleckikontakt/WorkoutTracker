@@ -8,6 +8,11 @@
   --background-end-rgb: 255, 255, 255;
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 60px; 
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
@@ -24,7 +29,7 @@
 
 @layer base {
   :root {
-    --background: 120 71% 99%;
+    --background: 0 20% 97%;
     --foreground: 124 78% 4%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 3.9%;
@@ -84,5 +89,15 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .icon {
+    transition: filter 0.3s ease; /* Smooth transition */
+  }
+
+  .icon:hover {
+    filter: hue-rotate(90deg) brightness(0.6);
   }
 }

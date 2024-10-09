@@ -74,3 +74,27 @@ export const TestimonialsArray: TestimonialsArrayType = [
     socialSrc: "",
   },
 ];
+
+export const plansLists = {
+  basic: [
+    "5 workout programs",
+    "Daily meal tracking",
+    "Progress analytics",
+    "Community access",
+    "Access to basic workout tutorials",
+  ],
+  pro: [
+    "10 workout programs",
+    "Custom meal plans",
+    "Advanced body analysis",
+    "Personal coach support",
+    "Community access",
+  ],
+  enterprise: [
+    "Unlimited workout programs",
+    "Team progress tracking",
+    "Custom branding",
+    "Dedicated account manager",
+    "Exclusive community perks",
+  ],
+};
