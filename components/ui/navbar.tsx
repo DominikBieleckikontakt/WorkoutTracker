@@ -1,11 +1,15 @@
 "use client";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
+
 import { Button } from "./button"; // Assuming Button is a custom component
 import { Transition } from "@headlessui/react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+  console.log(pathname);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -24,7 +28,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex justify-start">
-            <Link href="#" className="text-2xl font-semibold">
+            <Link href="/" className="text-2xl font-semibold">
               PulseFit<span className="text-primary">.</span>
             </Link>
           </div>
@@ -73,12 +77,21 @@ const Navbar = () => {
           </div>
           {/* Links and button on larger screens */}
           <div className="hidden md:flex space-x-8 justify-center flex-1">
-            <div
-              className="text-lg font-medium text-gray-600 hover:text-black duration-300 cursor-pointer"
-              onClick={scrollToTop}
-            >
-              Home
-            </div>
+            {pathname === "/" ? (
+              <div
+                className="text-lg font-medium text-gray-600 hover:text-black duration-300 cursor-pointer"
+                onClick={scrollToTop}
+              >
+                Home
+              </div>
+            ) : (
+              <Link
+                href="/"
+                className="text-lg font-medium text-gray-700 hover:text-black duration-300"
+              >
+                Home
+              </Link>
+            )}
             <Link
               href="#features"
               className="text-lg font-medium text-gray-700 hover:text-black duration-300"
@@ -92,7 +105,7 @@ const Navbar = () => {
               Pricing
             </Link>
             <Link
-              href="#"
+              href="/contact"
               className="text-lg font-medium text-gray-700 hover:text-black duration-300"
             >
               Contact
@@ -120,27 +133,40 @@ const Navbar = () => {
         <div className="md:hidden backdrop-blur-md">
           <div className="bg-white/95 backdrop-blur-md absolute right-0 w-2/3 h-screen z-40 p-6 transition-transform duration-300 ease-in-out top-5">
             <div className="flex flex-col space-y-4">
-              <Link
-                href="#"
-                className="text-lg font-medium text-gray-600 hover:text-black duration-300"
-              >
-                Home
-              </Link>
+              {pathname === "/" ? (
+                <div
+                  className="text-lg font-medium text-gray-600 hover:text-black duration-300 cursor-pointer"
+                  onClick={scrollToTop}
+                >
+                  Home
+                </div>
+              ) : (
+                <Link
+                  href="/"
+                  className="text-lg font-medium text-gray-700 hover:text-black duration-300"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Home
+                </Link>
+              )}
               <Link
                 href="#features"
                 className="text-lg font-medium text-gray-700 hover:text-black duration-300"
+                onClick={() => setIsOpen(false)}
               >
                 Features
               </Link>
               <Link
                 href="#pricing"
                 className="text-lg font-medium text-gray-700 hover:text-black duration-300"
+                onClick={() => setIsOpen(false)}
               >
                 Pricing
               </Link>
               <Link
-                href="#"
+                href="/contact"
                 className="text-lg font-medium text-gray-700 hover:text-black duration-300"
+                onClick={() => setIsOpen(false)}
               >
                 Contact
               </Link>

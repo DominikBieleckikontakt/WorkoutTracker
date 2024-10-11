@@ -25,7 +25,7 @@ export default function Home() {
         <Statscard />
         <Choice />
         <Productivity />
-        <Tabs />
+        {/* <Tabs /> */}
         <Testimonials />
         <Plans />
         <FAQ />

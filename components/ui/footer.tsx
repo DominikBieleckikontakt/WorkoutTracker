@@ -43,9 +43,6 @@ const Footer = () => {
               <Link href="#">Careers</Link>
             </li>
             <li className="text-gray-600 hover:text-black duration-300">
-              <Link href="#">Blog</Link>
-            </li>
-            <li className="text-gray-600 hover:text-black duration-300">
               <Link href="#">Contact Us</Link>
             </li>
           </ul>
@@ -114,13 +111,13 @@ const Footer = () => {
         </p>
         <ul className="font-light flex gap-5">
           <li>
-            <Link href="#">Privacy Policy</Link>
+            <Link href="/privacy-policy">Privacy Policy</Link>
           </li>
           <li>
-            <Link href="#">Terms of Service</Link>
+            <Link href="/terms-of-service">Terms of Service</Link>
           </li>
           <li>
-            <Link href="#">Cookies Settings</Link>
+            <Link href="/cookies-settings">Cookies Settings</Link>
           </li>
         </ul>
       </div>
