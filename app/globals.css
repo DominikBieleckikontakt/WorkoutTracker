@@ -100,4 +100,18 @@ html {
   .icon:hover {
     filter: hue-rotate(90deg) brightness(0.6);
   }
+
+  input[type="checkbox"] {
+    outline: none;
+  }
+
+  input[type="checkbox"]:focus {
+    border: none;
+    outline: none;
+  } 
+
+  input[type="checkbox"] {
+    transition: none;
+  }
+
 }

@@ -2,7 +2,7 @@ import Footer from "@/components/ui/footer";
 import Navbar from "@/components/ui/navbar";
 import React from "react";
 
-const PrivacyPolicy = () => {
+const TermsOfServicePage = () => {
   return (
     <>
       <Navbar />
@@ -21,4 +21,4 @@ const PrivacyPolicy = () => {
   );
 };
 
-export default PrivacyPolicy;
+export default TermsOfServicePage;

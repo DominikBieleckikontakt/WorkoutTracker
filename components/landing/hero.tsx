@@ -4,8 +4,8 @@ import Image from "next/image";
 
 const Hero = () => {
   return (
-    <div className="mb-24">
-      <div className="relative">
+    <div className="mb-48 mt-64">
+      <div className="relative mt-24">
         <Image
           src="/icons/bicycle_icon.png"
           alt="bicycle"
@@ -20,7 +20,7 @@ const Hero = () => {
           alt="bicycle"
           width={70}
           height={70}
-          className="absolute top-64 left-24 opacity-50 2xl:opacity-100 2xl:top-64 2xl:left-80 bg-white shadow-lg rounded-full"
+          className="absolute top-80 left-24 opacity-50 2xl:opacity-100 md:top-64 2xl:left-80 bg-white shadow-lg rounded-full"
         />
       </div>
       <div className="relative">
