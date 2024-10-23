@@ -5,6 +5,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+
 import {
   Form,
   FormControl,
@@ -36,6 +39,7 @@ const formSchema = z.object({
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -50,8 +54,19 @@ const LoginForm = () => {
     setShowPassword((prev) => !prev);
   };
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    console.log("before result");
+    const result = await signIn("credentials", {
+      redirect: false,
+      email: values.email,
+      password: values.password,
+    });
+    console.log("after result");
+    if (result?.error) {
+      console.log("error");
+    } else {
+      router.push("/contact");
+    }
   };
 
   return (

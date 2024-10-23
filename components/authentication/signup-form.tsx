@@ -16,6 +16,7 @@ import {
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Lock, Mail, Eye, EyeOff, User } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 const passwordSchema = z
   .string()
@@ -45,6 +46,9 @@ const formSchema = z
 
 const SignupForm = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showPasswordConfirm, setShowPasswordConfirm] =
+    useState<boolean>(false);
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -60,8 +64,29 @@ const SignupForm = () => {
     setShowPassword((prev) => !prev);
   };
 
+  const togglePasswordConfirmVisibility = () => {
+    setShowPasswordConfirm((prev) => !prev);
+  };
+
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    fetch("/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+        subscriptionLevel: "Basic",
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        router.push("/authentication/login");
+      } else {
+        console.log("Error");
+      }
+    });
   };
 
   return (
@@ -160,16 +185,16 @@ const SignupForm = () => {
                       <Lock className="h-5 w-5 text-gray-500" />
                     </span>
                     <Input
-                      type={showPassword ? "text" : "password"}
+                      type={showPasswordConfirm ? "text" : "password"}
                       placeholder="Confirm your password"
                       {...field}
                       className="pl-10 pr-10"
                     />
                     <span
                       className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
-                      onClick={togglePasswordVisibility}
+                      onClick={togglePasswordConfirmVisibility}
                     >
-                      {showPassword ? (
+                      {showPasswordConfirm ? (
                         <EyeOff className="h-5 w-5 text-gray-500" />
                       ) : (
                         <Eye className="h-5 w-5 text-gray-500" />
@@ -182,7 +207,7 @@ const SignupForm = () => {
             )}
           />
           <Button type="submit" className="w-full" size={"lg"}>
-            Log In
+            Sign Up
           </Button>
         </form>
       </Form>
