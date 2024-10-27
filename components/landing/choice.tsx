@@ -21,7 +21,7 @@ const ChoiceCard = ({
         className="bg-red-100 rounded-full p-2 mb-3"
       />
       <h5 className="text-lg font-semibold">{title}</h5>
-      <p className="text-gray-500 font-light">{subtitle}</p>
+      <p className="text-text-light font-light">{subtitle}</p>
     </div>
   );
 };
@@ -34,7 +34,7 @@ const Choice = () => {
           Why Choose <span className="font-semibold">PulseFit</span>
           <span className="text-primary font-semibold">?</span>
         </h3>
-        <p className="text-gray-500 text-md">
+        <p className="text-text-light text-md">
           Explore powerful features that help you stay consistent, improve
           performance, and reach your fitness milestones.
         </p>

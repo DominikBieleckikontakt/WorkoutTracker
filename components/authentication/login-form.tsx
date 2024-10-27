@@ -20,6 +20,7 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Lock, Mail, Eye, EyeOff } from "lucide-react";
 import { Checkbox } from "@/src/components/ui/checkbox";
+import Image from "next/image";
 
 const formSchema = z.object({
   email: z.string().min(3).max(50).email("Invalid email address format"),
@@ -34,11 +35,12 @@ const formSchema = z.object({
       /[@$!%*?&#]/,
       "Password must contain at least one special character"
     ),
-  rememberMe: z.boolean().optional(),
 });
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -46,7 +48,6 @@ const LoginForm = () => {
     defaultValues: {
       email: "",
       password: "",
-      rememberMe: false,
     },
   });
 
@@ -55,15 +56,15 @@ const LoginForm = () => {
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log("before result");
     const result = await signIn("credentials", {
       redirect: false,
       email: values.email,
       password: values.password,
     });
-    console.log("after result");
+
     if (result?.error) {
-      console.log("error");
+      console.log(result);
+      setError(result.error);
     } else {
       router.push("/contact");
     }
@@ -131,24 +132,9 @@ const LoginForm = () => {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="rememberMe"
-            render={({ field }) => (
-              <FormItem className="space-x-1 relative">
-                <FormControl>
-                  <Checkbox
-                    className="absolute top-1"
-                    checked={field.value}
-                    onCheckedChange={(checked) => field.onChange(checked)}
-                  />
-                </FormControl>
-                <FormLabel className="pl-4 cursor-pointer">
-                  Remember me
-                </FormLabel>
-              </FormItem>
-            )}
-          />
+          {error && (
+            <p className="text-red-500 font-semibold text-sm">{error}</p>
+          )}
           <Button type="submit" className="w-full" size={"lg"}>
             Log In
           </Button>
@@ -159,7 +145,26 @@ const LoginForm = () => {
         <div className="text-sm text-gray-400 font-semibold">OR</div>
         <div className="h-[2px] bg-gray-200 w-full" />
       </div>
-      <div></div>
+      <div>
+        <Button
+          variant="outline"
+          className="w-full space-x-2 hover:bg-black/5 duration-300 dark:hover:bg-black/90"
+          onClick={() =>
+            signIn("google", {
+              redirect: true,
+              callbackUrl: "/contact",
+            })
+          }
+        >
+          <Image
+            src="/icons/brands/google.png"
+            width={20}
+            height={20}
+            alt="google"
+          />{" "}
+          <span>Login with Google</span>
+        </Button>
+      </div>
     </>
   );
 };

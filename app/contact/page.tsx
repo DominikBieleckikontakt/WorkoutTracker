@@ -3,6 +3,7 @@ import ContactForm from "@/components/contact/contact-form";
 import Container from "@/components/landing/container";
 import Footer from "@/components/ui/footer";
 import Navbar from "@/components/ui/navbar";
+import { SessionProvider } from "next-auth/react";
 import React from "react";
 
 const ContactPage = () => {
@@ -23,7 +24,9 @@ const ContactPage = () => {
           happy to assist you on your fitness journey.
         </p>
         <Container>
-          <ContactForm />
+          <SessionProvider>
+            <ContactForm />
+          </SessionProvider>
         </Container>
       </main>
       <Footer />

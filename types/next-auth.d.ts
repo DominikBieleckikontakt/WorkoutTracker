@@ -4,6 +4,7 @@ declare module "next-auth" {
   interface Session {
     user: {
       // Dodaj subscriptionLevel do sesji użytkownika
+      id: string;
       subscriptionLevel: string;
     } & DefaultSession["user"];
   }

@@ -26,7 +26,7 @@ const PlanCard = ({
     >
       <h2 className="text-lg">{level}</h2>
       <div>
-        <p className={`text-sm text-gray-500 ${isPro && "text-white"} mt-2`}>
+        <p className={`text-sm text-text-light ${isPro && "text-white"} mt-2`}>
           <span className={`text-2xl ${isPro ? "text-white" : "text-black"}`}>
             ${price}
           </span>
@@ -34,7 +34,7 @@ const PlanCard = ({
         </p>
 
         <p
-          className={`text-sm text-[0.7rem] text-gray-500 ${
+          className={`text-sm text-[0.7rem] text-text-light ${
             isPro && "text-white/80"
           } mt-0`}
         >
@@ -48,7 +48,7 @@ const PlanCard = ({
           /year
         </p>
       </div>
-      <p className={`text-gray-500 ${isPro && "text-white"} my-3 mb-5`}>
+      <p className={`text-text-light ${isPro && "text-white"} my-3 mb-5`}>
         {description}
       </p>
       <Button
@@ -108,7 +108,7 @@ const Plans = () => {
           <span className="font-semibold">Plans</span> That Fit Your Fitness
           Journey
         </h3>
-        <p className="text-gray-500 lg:mx-24 xl:mx-64">
+        <p className="text-text-light lg:mx-24 xl:mx-64">
           Find the perfect plan for your fitness journey. Whether you’re just
           starting or aiming for advanced goals, we’ve got you covered.
         </p>

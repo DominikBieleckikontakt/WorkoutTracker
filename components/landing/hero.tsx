@@ -45,7 +45,7 @@ const Hero = () => {
         <h1 className="font-thin text-5xl text-center mt-48 md:text-6xl lg:text-8xl ">
           Unlock Your Fitness <span className="font-semibold">Potential</span>
         </h1>
-        <p className="text-center mt-5 text-sm md:text-md lg:text-lg text-gray-500 lg:max-w-[50rem] lg:mx-auto">
+        <p className="text-center mt-5 text-sm md:text-md lg:text-lg text-text-light lg:max-w-[50rem] lg:mx-auto">
           Track your workouts, achieve your goals, and transform your lifestyle
           with personalized insights and seamless integration.
         </p>

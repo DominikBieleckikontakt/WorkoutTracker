@@ -17,6 +17,8 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Lock, Mail, Eye, EyeOff, User } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { signIn } from "next-auth/react";
 
 const passwordSchema = z
   .string()
@@ -48,6 +50,8 @@ const SignupForm = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showPasswordConfirm, setShowPasswordConfirm] =
     useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -68,8 +72,8 @@ const SignupForm = () => {
     setShowPasswordConfirm((prev) => !prev);
   };
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    fetch("/api/auth/register", {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const res = await fetch("/api/auth/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -80,13 +84,14 @@ const SignupForm = () => {
         password: values.password,
         subscriptionLevel: "Basic",
       }),
-    }).then((res) => {
-      if (res.ok) {
-        router.push("/authentication/login");
-      } else {
-        console.log("Error");
-      }
     });
+
+    if (res.ok) {
+      router.push("/authentication/login");
+    } else {
+      const data = await res.json();
+      setError(data.error);
+    }
   };
 
   return (
@@ -131,6 +136,7 @@ const SignupForm = () => {
                     </span>
                     <Input
                       placeholder="Enter your email"
+                      type="email"
                       {...field}
                       className="pl-10"
                     />
@@ -206,6 +212,9 @@ const SignupForm = () => {
               </FormItem>
             )}
           />
+          {error && (
+            <p className="text-red-500 text-sm font-semibold">{error}</p>
+          )}
           <Button type="submit" className="w-full" size={"lg"}>
             Sign Up
           </Button>
@@ -216,7 +225,26 @@ const SignupForm = () => {
         <div className="text-sm text-gray-400 font-semibold">OR</div>
         <div className="h-[2px] bg-gray-200 w-full" />
       </div>
-      <div></div>
+      <div>
+        <Button
+          variant="outline"
+          className="w-full space-x-2 hover:bg-black/5 duration-300 dark:hover:bg-black/90"
+          onClick={() =>
+            signIn("google", {
+              redirect: true,
+              callbackUrl: "/contact",
+            })
+          }
+        >
+          <Image
+            src="/icons/brands/google.png"
+            width={20}
+            height={20}
+            alt="google"
+          />{" "}
+          <span>Sign up with Google</span>
+        </Button>
+      </div>
     </>
   );
 };

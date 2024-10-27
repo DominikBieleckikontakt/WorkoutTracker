@@ -29,7 +29,7 @@ const ProductivityCard = ({
       </div>
       <div className="p-5">
         <h3 className="text-xl font-semibold">{title}</h3>
-        <p className="text-gray-500 font-light mt-2">{subtitle}</p>
+        <p className="text-text-light font-light mt-2">{subtitle}</p>
       </div>
     </div>
   );
@@ -43,7 +43,7 @@ const Productivity = () => {
           Tools to <span className="font-semibold">Elevate</span> Your
           Productivity
         </h3>
-        <p className="text-gray-500 lg:mx-24 xl:mx-64">
+        <p className="text-text-light lg:mx-24 xl:mx-64">
           Explore powerful tools designed to streamline your creative progress.
           From seamless integrations to effortless content management, these
           features are built to enhance your productivity and creativity

@@ -10,7 +10,7 @@ const Tabs = () => {
         <h3 className="font-extralight text-4xl lg:text-5xl">
           <span className="font-semibold">Seamless</span> Integration
         </h3>
-        <p className="text-gray-500">
+        <p className="text-text-light">
           Manage your workouts, track your progress, and share insights with
           trainers and friends - all in one place. Enjoy real-time updates and
           detailed analytics for an optimized fitness journey.

@@ -39,7 +39,7 @@ const Testimonial = ({
               height={20}
               className="rounded-full"
             />
-            <p className="text-gray-500 text-sm">{userTag}</p>
+            <p className="text-text-light text-sm">{userTag}</p>
           </div>
         </div>
       </div>
@@ -54,7 +54,7 @@ const Testimonials = () => {
         <h3 className="font-extralight text-4xl lg:text-5xl">
           Transformations That <span className="font-semibold">Inspire</span>
         </h3>
-        <p className="text-gray-500 lg:mx-24 xl:mx-64">
+        <p className="text-text-light lg:mx-24 xl:mx-64">
           Real stories from users who achieved their fitness goals with
           PulseFit.
         </p>

@@ -16,7 +16,7 @@ const FAQ = () => {
         <h3 className="font-extralight text-4xl lg:text-5xl">
           Frequently <span className="font-semibold">Asked</span> Questions
         </h3>
-        <p className="text-gray-500">
+        <p className="text-text-light">
           Got questions? We’ve got answers! Here’s everything you need to know
           before getting started.
         </p>
