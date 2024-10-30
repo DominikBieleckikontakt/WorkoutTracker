@@ -14,10 +14,12 @@ const Banner = () => {
           Join thousands of fitness enthustiasts on our platform and transform
           your health. Available only on website!
         </p>
-        <Button className="rounded-lg py-6">Start Your Journey</Button>
+        <Button className="rounded-lg py-6 dark:text-white">
+          Start Your Journey
+        </Button>
       </div>
       <div className="w-full my-10 lg:my-0 lg:w-1/2 text-center">
-        <h2 className="text-7xl lg:text-8xl text-black/15 font-bold">
+        <h2 className="text-7xl lg:text-8xl text-black/15 font-bold dark:text-white/15">
           PulseFit<span className="text-primary/20">.</span>
         </h2>
       </div>

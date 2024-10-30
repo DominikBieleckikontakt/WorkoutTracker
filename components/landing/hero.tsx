@@ -52,7 +52,7 @@ const Hero = () => {
 
         <div className="flex gap-5 justify-center mt-8">
           <Button
-            className="rounded-xl hover:bg-primary/70 duration-300 z-10 relative after:content-[''] after:absolute after:w-full after:h-full after:-z-10 after:rounded-lg after:bg-primary after:blur-sm"
+            className="text-white rounded-xl hover:bg-primary/70 duration-300 z-10 relative after:content-[''] after:absolute after:w-full after:h-full after:-z-10 after:rounded-lg after:bg-primary after:blur-sm"
             size="lg"
           >
             Get started

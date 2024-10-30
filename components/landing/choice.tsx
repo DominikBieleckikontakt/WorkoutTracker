@@ -12,7 +12,7 @@ const ChoiceCard = ({
   subtitle: string;
 }) => {
   return (
-    <div className="w-full p-5 rounded-lg hover:bg-white hover:shadow-md duration-300 lg:max-w-80">
+    <div className="w-full p-5 rounded-lg hover:bg-white dark:hover:bg-black/30 hover:shadow-md duration-300 lg:max-w-80">
       <Image
         src={iconSrc}
         width={50}

@@ -16,9 +16,9 @@ const ProductivityCard = ({
 }) => {
   return (
     <div
-      className={`bg-white shadow-sm hover:shadow-lg duration-300 rounded-lg ${className}`}
+      className={`bg-white dark:bg-black/60 shadow-sm hover:shadow-lg duration-300 rounded-lg ${className}`}
     >
-      <div className="bg-gray-100 rounded-t-lg flex justify-center items-center h-64">
+      <div className="bg-gray-100 dark:invert rounded-t-lg flex justify-center items-center h-64">
         <Image
           src={imageSrc || "/icons/image_placeholder.png"}
           alt="placeholder"
@@ -77,7 +77,7 @@ const Productivity = () => {
       </div>
       <div className="text-center">
         <Button
-          className="rounded-xl z-10 py-6 relative after:content-[''] after:absolute after:w-full after:h-full after:-z-10 after:rounded-lg after:bg-primary after:blur-sm"
+          className="text-white rounded-xl z-10 py-6 relative after:content-[''] after:absolute after:w-full after:h-full after:-z-10 after:rounded-lg after:bg-primary after:blur-sm"
           size="lg"
         >
           Explore More

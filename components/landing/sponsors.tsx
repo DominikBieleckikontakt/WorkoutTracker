@@ -12,7 +12,7 @@ const sponsors: string[] = [
 
 const Sponsors = () => {
   return (
-    <div className="mt-16 w-full border-y-2 border-gray-200 mb-16 overflow-hidden">
+    <div className="mt-16 w-full border-y-2 border-gray-200 dark:border-black/80 mb-16 overflow-hidden">
       <div className="flex w-full space-x-32 items-center animate-scroll">
         {sponsors.concat(sponsors).map((sponsor, index) => (
           <Image
@@ -27,7 +27,7 @@ const Sponsors = () => {
                 sponsor.includes("asus") ||
                 sponsor.includes("uber")) &&
               "w-32 h-28"
-            } h-16 mx-4 inline-block object-contain opacity-30`}
+            } h-16 mx-4 inline-block object-contain opacity-30 dark:invert`}
           />
         ))}
         {sponsors.concat(sponsors).map((sponsor, index) => (
@@ -43,7 +43,7 @@ const Sponsors = () => {
                 sponsor.includes("asus") ||
                 sponsor.includes("uber")) &&
               "w-32 h-28"
-            } h-16 mx-4 inline-block object-contain opacity-30`}
+            } h-16 mx-4 inline-block object-contain opacity-30 dark:invert`}
           />
         ))}
       </div>

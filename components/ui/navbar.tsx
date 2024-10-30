@@ -5,11 +5,14 @@ import Link from "next/link";
 
 import { Button } from "./button"; // Assuming Button is a custom component
 import { Transition } from "@headlessui/react";
+import { useTheme } from "next-themes";
+import { Moon, Sun } from "lucide-react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { setTheme, theme } = useTheme();
+
   const pathname = usePathname();
-  console.log(pathname);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -23,12 +26,16 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white/80 backdrop-blur-md w-full fixed top-0 left-0 right-0 z-50 border-b-2 border-gray-100 py-5">
+    <nav className="bg-background/80 backdrop-blur-md w-full fixed top-0 left-0 right-0 z-50 border-b-2 border-background-100 py-5">
       <div className="px-16">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex justify-start">
-            <Link href="/" className="text-2xl font-semibold">
+            <Link
+              href="/"
+              className="text-2xl font-semibold"
+              onClick={() => setIsOpen(false)}
+            >
               PulseFit<span className="text-primary">.</span>
             </Link>
           </div>
@@ -37,7 +44,7 @@ const Navbar = () => {
             <button
               onClick={() => setIsOpen(!isOpen)}
               type="button"
-              className="text-gray-800 hover:text-gray-500 focus:outline-none"
+              className=" text-foreground/80 hover:text-foreground focus:outline-none"
               aria-controls="mobile-menu"
               aria-expanded={isOpen}
             >
@@ -79,7 +86,7 @@ const Navbar = () => {
           <div className="hidden md:flex space-x-8 justify-center flex-1">
             {pathname === "/" ? (
               <div
-                className="text-lg font-medium text-gray-600 hover:text-black duration-300 cursor-pointer"
+                className="text-lg font-medium text-foreground/80 hover:text-foreground duration-300 cursor-pointer"
                 onClick={scrollToTop}
               >
                 Home
@@ -87,33 +94,45 @@ const Navbar = () => {
             ) : (
               <Link
                 href="/"
-                className="text-lg font-medium text-gray-700 hover:text-black duration-300"
+                className="text-lg font-medium text-foreground/80 hover:text-foreground duration-300"
               >
                 Home
               </Link>
             )}
             <Link
-              href="#features"
-              className="text-lg font-medium text-gray-700 hover:text-black duration-300"
+              href="/#features"
+              className="text-lg font-medium text-foreground/80 hover:text-foreground duration-300"
             >
               Features
             </Link>
             <Link
-              href="#pricing"
-              className="text-lg font-medium text-gray-700 hover:text-black duration-300"
+              href="/#pricing"
+              className="text-lg font-medium text-foreground/80 hover:text-foreground duration-300"
             >
               Pricing
             </Link>
             <Link
               href="/contact"
-              className="text-lg font-medium text-gray-700 hover:text-black duration-300"
+              className="text-lg font-medium text-foreground/80 hover:text-foreground duration-300"
             >
               Contact
             </Link>
           </div>
-          <div className="hidden md:flex justify-end">
+          <div className="hidden md:flex justify-end space-x-3">
+            <Button
+              variant="outline"
+              size="icon"
+              className="rounded-xl"
+              onClick={() =>
+                theme === "light" ? setTheme("dark") : setTheme("light")
+              }
+            >
+              <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+              <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              <span className="sr-only">Toggle theme</span>
+            </Button>
             <Button asChild className="rounded-xl z-10">
-              <Link href="#" className="">
+              <Link href="#" className="text-white">
                 Get Started
               </Link>
             </Button>
@@ -131,11 +150,11 @@ const Navbar = () => {
         leaveTo="translate-x-full opacity-0"
       >
         <div className="md:hidden backdrop-blur-md">
-          <div className="bg-white/95 backdrop-blur-md absolute right-0 w-2/3 h-screen z-40 p-6 transition-transform duration-300 ease-in-out top-5">
+          <div className="bg-background/95 backdrop-blur-md absolute right-0 w-2/3 h-screen z-40 p-6 transition-transform duration-300 ease-in-out top-5">
             <div className="flex flex-col space-y-4">
               {pathname === "/" ? (
                 <div
-                  className="text-lg font-medium text-gray-600 hover:text-black duration-300 cursor-pointer"
+                  className="text-lg font-medium text-foreground/80 hover:text-foreground duration-300 cursor-pointer"
                   onClick={scrollToTop}
                 >
                   Home
@@ -143,39 +162,53 @@ const Navbar = () => {
               ) : (
                 <Link
                   href="/"
-                  className="text-lg font-medium text-gray-700 hover:text-black duration-300"
+                  className="text-lg font-medium text-foreground/80 hover:text-foreground duration-300"
                   onClick={() => setIsOpen(false)}
                 >
                   Home
                 </Link>
               )}
               <Link
-                href="#features"
-                className="text-lg font-medium text-gray-700 hover:text-black duration-300"
+                href="/#features"
+                className="text-lg font-medium text-foreground/80 hover:text-foreground duration-300"
                 onClick={() => setIsOpen(false)}
               >
                 Features
               </Link>
               <Link
-                href="#pricing"
-                className="text-lg font-medium text-gray-700 hover:text-black duration-300"
+                href="/#pricing"
+                className="text-lg font-medium text-foreground/80 hover:text-foreground duration-300"
                 onClick={() => setIsOpen(false)}
               >
                 Pricing
               </Link>
               <Link
                 href="/contact"
-                className="text-lg font-medium text-gray-700 hover:text-black duration-300"
+                className="text-lg font-medium text-foreground/80 hover:text-foreground duration-300"
                 onClick={() => setIsOpen(false)}
               >
                 Contact
               </Link>
             </div>
-            <Button asChild className="rounded-xl z-10 mt-5 w-full">
-              <Link href="#" className="">
-                Get Started
-              </Link>
-            </Button>
+            <div className="flex items-center gap-5 mt-5">
+              <Button asChild className="rounded-xl z-10 flex-1">
+                <Link href="#" className="text-white">
+                  Get Started
+                </Link>
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                className="rounded-xl"
+                onClick={() =>
+                  theme === "light" ? setTheme("dark") : setTheme("light")
+                }
+              >
+                <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                <span className="sr-only">Toggle theme</span>
+              </Button>
+            </div>
           </div>
         </div>
       </Transition>

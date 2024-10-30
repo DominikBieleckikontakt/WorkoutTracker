@@ -19,7 +19,7 @@ const Testimonial = ({
   socialSrc: string;
 }) => {
   return (
-    <div className="bg-white shadow-sm border-gray-100 border p-5 rounded-lg flex flex-col justify-between space-y-5">
+    <div className="bg-white dark:bg-black/30 shadow-sm border-gray-100 dark:border-zinc-900 border p-5 rounded-lg flex flex-col justify-between space-y-5">
       <p>{content}</p>
       <div className="flex gap-3 items-center">
         <Image

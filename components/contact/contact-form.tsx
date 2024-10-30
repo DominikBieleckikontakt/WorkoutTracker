@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -16,8 +16,6 @@ import {
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
-
-import { useSession } from "next-auth/react";
 
 const formSchema = z.object({
   firstname: z.string().min(2).max(50),
@@ -36,14 +34,6 @@ const ContactForm = () => {
       message: "",
     },
   });
-
-  const { data: session } = useSession();
-
-  useEffect(() => {
-    if (session) {
-      console.log("Session expires at:", session.expires);
-    }
-  }, [session]);
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     console.log(values);
@@ -108,7 +98,9 @@ const ContactForm = () => {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <Button type="submit" className="text-white">
+            Submit
+          </Button>
         </form>
       </Form>
     </div>

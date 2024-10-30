@@ -5,7 +5,7 @@ import Container from "./container";
 const Screens = () => {
   return (
     <Container className="grid grid-cols-2 grid-rows-2 gap-10">
-      <div className="bg-gray-100 row-span-2 rounded-lg flex justify-center items-center">
+      <div className="bg-gray-100 dark:invert row-span-2 rounded-lg flex justify-center items-center">
         <Image
           src="/icons/image_placeholder.png"
           alt="placeholder"
@@ -14,7 +14,7 @@ const Screens = () => {
           height={100}
         />
       </div>
-      <div className="bg-gray-100 rounded-lg h-80 flex justify-center items-center">
+      <div className="bg-gray-100 dark:invert rounded-lg h-80 flex justify-center items-center">
         <Image
           src="/icons/image_placeholder.png"
           alt="placeholder"
@@ -23,7 +23,7 @@ const Screens = () => {
           height={100}
         />
       </div>
-      <div className="bg-gray-100 rounded-lg h-80 flex justify-center items-center">
+      <div className="bg-gray-100 dark:invert rounded-lg h-80 flex justify-center items-center">
         <Image
           src="/icons/image_placeholder.png"
           alt="placeholder"

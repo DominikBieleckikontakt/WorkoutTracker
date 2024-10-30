@@ -9,7 +9,9 @@ const Footer = () => {
       <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-8">
         <div className="md:col-span-2 lg:col-span-3">
           <h3 className="text-3xl font-bold">
-            PulseFit<span className="text-primary">.</span>
+            <Link href="/">
+              PulseFit<span className="text-primary">.</span>
+            </Link>
           </h3>
         </div>
         <div>
@@ -17,16 +19,16 @@ const Footer = () => {
             <li className="font-semibold">
               <Link href="#">Product</Link>
             </li>
-            <li className="text-gray-600 hover:text-black duration-300">
+            <li className="text-foreground/80 hover:text-foreground duration-300">
               <Link href="#">Dashboard</Link>
             </li>
-            <li className="text-gray-600 hover:text-black duration-300">
+            <li className=" text-foreground/80 hover:text-foreground duration-300">
               <Link href="#">Features</Link>
             </li>
-            <li className="text-gray-600 hover:text-black duration-300">
+            <li className=" text-foreground/80 hover:text-foreground duration-300">
               <Link href="#">Pricing</Link>
             </li>
-            <li className="text-gray-600 hover:text-black duration-300">
+            <li className=" text-foreground/80 hover:text-foreground duration-300">
               <Link href="#">Help</Link>
             </li>
           </ul>
@@ -36,13 +38,13 @@ const Footer = () => {
             <li className="font-semibold">
               <Link href="#">Company</Link>
             </li>
-            <li className="text-gray-600 hover:text-black duration-300">
+            <li className=" text-foreground/80 hover:text-foreground duration-300">
               <Link href="#">About Us</Link>
             </li>
-            <li className="text-gray-600 hover:text-black duration-300">
+            <li className=" text-foreground/80 hover:text-foreground duration-300">
               <Link href="#">Careers</Link>
             </li>
-            <li className="text-gray-600 hover:text-black duration-300">
+            <li className=" text-foreground/80 hover:text-foreground duration-300">
               <Link href="#">Contact Us</Link>
             </li>
           </ul>
@@ -111,13 +113,28 @@ const Footer = () => {
         </p>
         <ul className="font-light flex gap-5">
           <li>
-            <Link href="/privacy-policy">Privacy Policy</Link>
+            <Link
+              href="/privacy-policy"
+              className=" text-foreground/80 hover:text-foreground"
+            >
+              Privacy Policy
+            </Link>
           </li>
           <li>
-            <Link href="/terms-of-service">Terms of Service</Link>
+            <Link
+              href="/terms-of-service"
+              className=" text-foreground/80 hover:text-foreground"
+            >
+              Terms of Service
+            </Link>
           </li>
           <li>
-            <Link href="/cookies-settings">Cookies Settings</Link>
+            <Link
+              href="/cookies-settings"
+              className=" text-foreground/80 hover:text-foreground"
+            >
+              Cookies Settings
+            </Link>
           </li>
         </ul>
       </div>

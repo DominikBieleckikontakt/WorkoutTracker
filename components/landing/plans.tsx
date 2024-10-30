@@ -22,12 +22,20 @@ const PlanCard = ({
     <div
       className={`p-5 ${className} ${
         isPro && "bg-primary text-white"
-      } rounded-lg max-lg:max-w-[28rem] max-lg:mx-auto`}
+      } rounded-lg max-lg:max-w-[28rem] max-lg:mx-auto dark:text-white`}
     >
       <h2 className="text-lg">{level}</h2>
       <div>
-        <p className={`text-sm text-text-light ${isPro && "text-white"} mt-2`}>
-          <span className={`text-2xl ${isPro ? "text-white" : "text-black"}`}>
+        <p
+          className={`text-sm text-text-light ${
+            isPro && "text-white"
+          } mt-2 dark:text-white`}
+        >
+          <span
+            className={`text-2xl ${
+              isPro ? "text-white" : "text-black dark:text-white"
+            }`}
+          >
             ${price}
           </span>
           /month
@@ -41,7 +49,7 @@ const PlanCard = ({
           <span
             className={`text-sm ${
               isPro ? "text-white/90" : "text-black/80"
-            } font-semibold`}
+            } font-semibold dark:text-white`}
           >
             ${+price * 12}
           </span>
