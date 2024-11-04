@@ -3,7 +3,7 @@ import Container from "./container";
 
 const Statscard = () => {
   return (
-    <Container className=" bg-primary shadow-md rounded-lg flex flex-col items-center sm:grid sm:grid-cols-2 xl:grid-cols-4 gap-10 p-8 px-10 text-background">
+    <Container className="bg-primary text-white shadow-md rounded-lg flex flex-col items-center sm:grid sm:grid-cols-2 xl:grid-cols-4 gap-10 p-8 px-10 text-background">
       <div>
         <p className="text-sm">Workouts Completed</p>
         <h3 className="text-4xl mt-1 font-semibold">10,000+</h3>

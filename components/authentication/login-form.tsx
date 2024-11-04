@@ -37,6 +37,7 @@ const formSchema = z.object({
     ),
 });
 
+// TODO: Add loading state
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -66,7 +67,7 @@ const LoginForm = () => {
       console.log(result);
       setError(result.error);
     } else {
-      router.push("/contact");
+      router.push("/dashboard");
     }
   };
 

@@ -77,7 +77,7 @@ const Productivity = () => {
       </div>
       <div className="text-center">
         <Button
-          className="text-white rounded-xl z-10 py-6 relative after:content-[''] after:absolute after:w-full after:h-full after:-z-10 after:rounded-lg after:bg-primary after:blur-sm"
+          className="text-white rounded-xl z-10 py-6 relative after:content-[''] after:absolute after:w-full after:h-full after:-z-10 after:rounded-lg after:bg-primary after:blur-sm transition duration-300 hover:after:blur-[6px] after:transition after:duration-300"
           size="lg"
         >
           Explore More

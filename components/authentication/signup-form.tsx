@@ -46,6 +46,7 @@ const formSchema = z
     }
   });
 
+// TODO: Add loading state
 const SignupForm = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showPasswordConfirm, setShowPasswordConfirm] =

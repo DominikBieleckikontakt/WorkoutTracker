@@ -5,7 +5,6 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   const { name, email, password, subscriptionLevel } = await req.json();
-  console.log(name, email, password);
 
   // Validate input
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;

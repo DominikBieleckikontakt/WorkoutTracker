@@ -90,7 +90,7 @@ export const authOptions = {
       return session;
     },
     async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
-      return url.startsWith(baseUrl) ? url : baseUrl + "/contact";
+      return url.startsWith(baseUrl) ? url : baseUrl + "/dashboard";
     },
   },
   pages: {
