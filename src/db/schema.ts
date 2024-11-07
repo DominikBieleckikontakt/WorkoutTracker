@@ -5,6 +5,7 @@ import {
   text,
   primaryKey,
   integer,
+  serial,
 } from "drizzle-orm/pg-core";
 import type { AdapterAccount } from "next-auth/adapters";
 
@@ -18,6 +19,21 @@ export const users = pgTable("user", {
   password: text("password").notNull(),
   image: text("image"),
   subscriptionLevel: text("subscriptionLevel").notNull().default("Basic"),
+  isNewUser: boolean("isNewUser").notNull().default(true),
+});
+
+export const userData = pgTable("userData", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  weight: serial("weight").notNull(),
+  height: serial("height").notNull(),
+  age: integer("age").notNull(),
+  gender: text("gender").notNull(),
+  goal: text("goal").notNull(),
 });
 
 export const accounts = pgTable(

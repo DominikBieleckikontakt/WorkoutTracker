@@ -75,6 +75,7 @@ export const authOptions = {
         token.name = user.name;
         token.email = user.email;
         token.subscriptionLevel = user.subscriptionLevel;
+        token.isNewUser = user.isNewUser;
       }
       return token;
     },
@@ -85,6 +86,7 @@ export const authOptions = {
         session.user.name = token.name;
         session.user.email = token.email;
         session.user.subscriptionLevel = token.subscriptionLevel;
+        session.user.isNewUser = token.isNewUser;
       }
 
       return session;

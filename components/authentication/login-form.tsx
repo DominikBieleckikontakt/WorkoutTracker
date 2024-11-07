@@ -19,8 +19,9 @@ import {
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Lock, Mail, Eye, EyeOff } from "lucide-react";
-import { Checkbox } from "@/src/components/ui/checkbox";
+import { Checkbox } from "@/components/ui/checkbox";
 import Image from "next/image";
+import useEncryptedPasswordStore from "@/lib/store/useEncryptedPasswordStore";
 
 const formSchema = z.object({
   email: z.string().min(3).max(50).email("Invalid email address format"),
@@ -41,6 +42,10 @@ const formSchema = z.object({
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+
+  const changePassword = useEncryptedPasswordStore(
+    (state: any) => state.changePassword
+  );
 
   const router = useRouter();
 
@@ -67,6 +72,7 @@ const LoginForm = () => {
       console.log(result);
       setError(result.error);
     } else {
+      changePassword(values.password);
       router.push("/dashboard");
     }
   };

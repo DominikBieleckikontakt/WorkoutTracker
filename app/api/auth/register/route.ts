@@ -42,6 +42,7 @@ export async function POST(req: Request) {
     email,
     password: hashedPassword,
     subscriptionLevel,
+    isNewUser: true,
   });
 
   return NextResponse.json(
