@@ -1,29 +1,28 @@
+// export default function middleware() {}
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
-import { getToken } from "next-auth/jwt";
+import { withAuth } from "next-auth/middleware";
 
-// Define paths that require auth
-const protectedPaths = ["/dashboard"];
+export default withAuth(
+  function middleware(req) {
+    const { pathname } = req.nextUrl;
 
-export async function middleware(req: NextRequest) {
-  const token = await getToken({ req, secret: process.env.AUTH_SECRET });
+    // If user is authenticated and on login page, redirect to dashboard
+    if (req.nextauth.token && pathname === "/authentication/login") {
+      return NextResponse.redirect(new URL("/dashboard", req.url));
+    }
 
-  if (token?.isNewUser && !req.nextUrl.pathname.startsWith("/onboarding")) {
-    return NextResponse.redirect(new URL("/onboarding", req.url));
+    // If user is NOT authenticated and tries to access the dashboard, redirect to login
+    if (!req.nextauth.token && pathname === "/dashboard") {
+      return NextResponse.redirect(new URL("/authentication/login", req.url));
+    }
+  },
+  {
+    callbacks: {
+      authorized: ({ token }) => !!token, // Check if the user is logged in
+    },
   }
+);
 
-  // Check if the requested path is protected
-  const isProtectedPath = protectedPaths.some((path) =>
-    req.nextUrl.pathname.startsWith(path)
-  );
-
-  if (isProtectedPath && !token) {
-    // If the user is not authenticated, redirect to the login page
-    return NextResponse.redirect(new URL("/authentication/login", req.url));
-  }
-
-  return NextResponse.next();
-}
-
-// Apply middleware to specific routes (for production only)
-export const config = { matcher: ["/dashboard/:path*"] };
+export const config = {
+  matcher: ["/login", "/dashboard"], // Apply middleware on login and dashboard pages
+};

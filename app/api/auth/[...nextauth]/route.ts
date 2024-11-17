@@ -1,11 +1,14 @@
-import NextAuth, { Session, SessionStrategy, User } from "next-auth";
+import { UserType } from "@/types";
+import NextAuth, { Profile, Session, SessionStrategy, User } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import bcrypt from "bcrypt";
 
 import db from "@/src/db";
+import { users } from "@/src/db/schema";
 
 export const authOptions = {
+  debug: true,
   providers: [
     Google({
       clientId: process.env.AUTH_GOOGLE_ID!,
@@ -53,7 +56,7 @@ export const authOptions = {
 
         if (
           user &&
-          bcrypt.compareSync(credentials?.password as string, user.password)
+          bcrypt.compareSync(credentials?.password as string, user.password!)
         ) {
           // Add rememberMe to user
 
@@ -68,6 +71,21 @@ export const authOptions = {
     strategy: "jwt" as SessionStrategy,
   },
   callbacks: {
+    async signIn({ user, profile }: any) {
+      const existingUser = await db.query.users.findFirst({
+        where: (users, { eq }) => eq(users.email, user?.email as string),
+      });
+
+      if (!existingUser) {
+        await db.insert(users).values({
+          email: profile?.email as string,
+          name: profile?.name as string,
+          subscriptionLevel: "Basic",
+          isNewUser: true,
+        });
+      }
+      return true;
+    },
     async jwt({ token, user }: { token: any; user?: User }) {
       // Add subscriptionLevel to token
       if (user) {
@@ -75,8 +93,8 @@ export const authOptions = {
         token.name = user.name;
         token.email = user.email;
         token.subscriptionLevel = user.subscriptionLevel;
-        token.isNewUser = user.isNewUser;
       }
+
       return token;
     },
     async session({ session, token }: { session: Session; token: any }) {
@@ -86,7 +104,6 @@ export const authOptions = {
         session.user.name = token.name;
         session.user.email = token.email;
         session.user.subscriptionLevel = token.subscriptionLevel;
-        session.user.isNewUser = token.isNewUser;
       }
 
       return session;

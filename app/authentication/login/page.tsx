@@ -1,10 +1,19 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 import LoginForm from "@/components/authentication/login-form";
 
 const LoginPage = () => {
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    if (session) {
+      window.location.href = "/dashboard";
+    }
+  }, [session]);
+
   return (
     <main className="min-h-screen max-sm:mx-5 w-full flex">
       <div className="w-full lg:w-1/2 flex justify-center items-center">

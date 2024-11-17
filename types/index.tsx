@@ -28,3 +28,14 @@ export type UserSessionType = {
   name: string;
   subscriptionLevel: string;
 };
+
+export type UserType = {
+  id: string;
+  name: string | null;
+  email: string;
+  emailVerified: Date | null;
+  password: string | null;
+  image: string | null;
+  subscriptionLevel: string;
+  isNewUser: boolean;
+};

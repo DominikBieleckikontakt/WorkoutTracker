@@ -21,7 +21,7 @@ import { Input } from "../ui/input";
 import { Lock, Mail, Eye, EyeOff } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import Image from "next/image";
-import useEncryptedPasswordStore from "@/lib/store/useEncryptedPasswordStore";
+import Loader from "../ui/loader";
 
 const formSchema = z.object({
   email: z.string().min(3).max(50).email("Invalid email address format"),
@@ -38,14 +38,11 @@ const formSchema = z.object({
     ),
 });
 
-// TODO: Add loading state
+// TODO: Add loading state, error when login failes (toast)
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-
-  const changePassword = useEncryptedPasswordStore(
-    (state: any) => state.changePassword
-  );
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -62,6 +59,8 @@ const LoginForm = () => {
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    setIsLoading(true);
+
     const result = await signIn("credentials", {
       redirect: false,
       email: values.email,
@@ -71,107 +70,116 @@ const LoginForm = () => {
     if (result?.error) {
       console.log(result);
       setError(result.error);
+      setIsLoading(false);
     } else {
-      changePassword(values.password);
       router.push("/dashboard");
+      setIsLoading(false);
     }
   };
 
   return (
     <>
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-6 md:min-w-96"
-        >
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem className="space-y-1">
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <div className="relative w-full">
-                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                      <Mail className="h-5 w-5 text-gray-500" />
-                    </span>
-                    <Input
-                      placeholder="Enter your email"
-                      {...field}
-                      className="pl-10"
-                    />
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem className="space-y-1">
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <div className="relative w-full">
-                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                      <Lock className="h-5 w-5 text-gray-500" />
-                    </span>
-                    <Input
-                      type={showPassword ? "text" : "password"}
-                      placeholder="Enter your password"
-                      {...field}
-                      className="pl-10 pr-10"
-                    />
-                    <span
-                      className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
-                      onClick={togglePasswordVisibility}
-                    >
-                      {showPassword ? (
-                        <EyeOff className="h-5 w-5 text-gray-500" />
-                      ) : (
-                        <Eye className="h-5 w-5 text-gray-500" />
-                      )}
-                    </span>
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          {error && (
-            <p className="text-red-500 font-semibold text-sm">{error}</p>
-          )}
-          <Button type="submit" className="w-full" size={"lg"}>
-            Log In
-          </Button>
-        </form>
-      </Form>
-      <div className="flex space-x-3 items-center">
-        <div className="h-[2px] bg-gray-200 w-full" />
-        <div className="text-sm text-gray-400 font-semibold">OR</div>
-        <div className="h-[2px] bg-gray-200 w-full" />
-      </div>
-      <div>
-        <Button
-          variant="outline"
-          className="w-full space-x-2 hover:bg-black/5 duration-300 dark:hover:bg-black/90"
-          onClick={() =>
-            signIn("google", {
-              redirect: true,
-              callbackUrl: "/contact",
-            })
-          }
-        >
-          <Image
-            src="/icons/brands/google.png"
-            width={20}
-            height={20}
-            alt="google"
-          />{" "}
-          <span>Login with Google</span>
-        </Button>
-      </div>
+      {isLoading ? (
+        <div className="md:min-w-96 h-full flex justify-center items-center">
+          <Loader className="size-12" />
+        </div>
+      ) : (
+        <>
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="space-y-6 md:min-w-96"
+            >
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem className="space-y-1">
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <div className="relative w-full">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                          <Mail className="h-5 w-5 text-gray-500" />
+                        </span>
+                        <Input
+                          placeholder="Enter your email"
+                          {...field}
+                          className="pl-10"
+                        />
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem className="space-y-1">
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <div className="relative w-full">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                          <Lock className="h-5 w-5 text-gray-500" />
+                        </span>
+                        <Input
+                          type={showPassword ? "text" : "password"}
+                          placeholder="Enter your password"
+                          {...field}
+                          className="pl-10 pr-10"
+                        />
+                        <span
+                          className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+                          onClick={togglePasswordVisibility}
+                        >
+                          {showPassword ? (
+                            <EyeOff className="h-5 w-5 text-gray-500" />
+                          ) : (
+                            <Eye className="h-5 w-5 text-gray-500" />
+                          )}
+                        </span>
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {error && (
+                <p className="text-red-500 font-semibold text-sm">{error}</p>
+              )}
+              <Button type="submit" className="w-full" size={"lg"}>
+                Log In
+              </Button>
+            </form>
+          </Form>
+          <div className="flex space-x-3 items-center">
+            <div className="h-[2px] bg-gray-200 w-full" />
+            <div className="text-sm text-gray-400 font-semibold">OR</div>
+            <div className="h-[2px] bg-gray-200 w-full" />
+          </div>
+          <div>
+            <Button
+              variant="outline"
+              className="w-full space-x-2 hover:bg-black/5 duration-300 dark:hover:bg-black/90"
+              onClick={() =>
+                signIn("google", {
+                  redirect: true,
+                  callbackUrl: "/contact",
+                })
+              }
+            >
+              <Image
+                src="/icons/brands/google.png"
+                width={20}
+                height={20}
+                alt="google"
+              />{" "}
+              <span>Login with Google</span>
+            </Button>
+          </div>
+        </>
+      )}
     </>
   );
 };

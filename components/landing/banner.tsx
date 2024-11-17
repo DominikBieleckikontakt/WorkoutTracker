@@ -1,6 +1,7 @@
 import React from "react";
 import Container from "./container";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 const Banner = () => {
   return (
@@ -14,8 +15,11 @@ const Banner = () => {
           Join thousands of fitness enthustiasts on our platform and transform
           your health. Available only on website!
         </p>
-        <Button className="rounded-lg py-6 dark:text-white  z-10 relative after:content-[''] after:absolute after:w-full after:h-full after:-z-10 after:rounded-lg after:bg-primary after:blur-sm transition duration-300 hover:after:blur-[6px] after:transition after:duration-300">
-          Start Your Journey
+        <Button
+          asChild
+          className="rounded-lg py-6 dark:text-white  z-10 relative after:content-[''] after:absolute after:w-full after:h-full after:-z-10 after:rounded-lg after:bg-primary after:blur-sm transition duration-300 hover:after:blur-[6px] after:transition after:duration-300"
+        >
+          <Link href="/authentication/login">Start Your Journey</Link>
         </Button>
       </div>
       <div className="w-full my-10 lg:my-0 lg:w-1/2 text-center">

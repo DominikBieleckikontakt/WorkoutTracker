@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -13,9 +13,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { QuestionsType, UserSessionType } from "@/types";
+import { QuestionsType } from "@/types";
 import { addUserData } from "@/actions/addUserData";
-import useEncryptedPasswordStore from "@/lib/store/useEncryptedPasswordStore";
+import useUserEmailStore from "@/lib/store/useUserEmailStore";
 
 const questions: QuestionsType[] = [
   {
@@ -72,7 +72,7 @@ const StartingQuestions = () => {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const password = useEncryptedPasswordStore((state: any) => state.password);
+  const userEmail = useUserEmailStore((state: any) => state.email);
 
   const { data: session }: { data: any } = useSession();
 
@@ -81,7 +81,7 @@ const StartingQuestions = () => {
       router.push("/authentication/login");
       return;
     }
-  }, [session, router]);
+  }, []);
 
   const handleSubmit = async () => {
     const currentSchema = questions[currentQuestion].schema;
@@ -111,17 +111,9 @@ const StartingQuestions = () => {
   const finishTest = async () => {
     try {
       const finalAnswers = [...answers, answer];
-      const status = await addUserData(
-        session as { user: UserSessionType },
-        finalAnswers
-      );
+      const status = await addUserData(userEmail, finalAnswers);
       if (status.status === "success") {
-        await signIn("credentials", {
-          redirect: true,
-          callbackUrl: "/dashboard",
-          email: session.user.email,
-          password,
-        });
+        router.push("/dashboard");
       }
     } catch (error) {
       console.log(error);

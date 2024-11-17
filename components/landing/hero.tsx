@@ -1,6 +1,8 @@
 import React from "react";
-import { Button } from "../ui/button";
 import Image from "next/image";
+import Link from "next/link";
+
+import { Button } from "../ui/button";
 
 const Hero = () => {
   return (
@@ -54,8 +56,9 @@ const Hero = () => {
           <Button
             className="text-white rounded-xl hover:bg-primary/70 duration-300 z-10 relative after:content-[''] after:absolute after:w-full after:h-full after:-z-10 after:rounded-lg after:bg-primary after:blur-sm transition hover:after:blur-[6px] after:transition after:duration-300"
             size="lg"
+            asChild
           >
-            Get started
+            <Link href="/authentication/login">Get started</Link>
           </Button>
           <Button
             variant="outline"

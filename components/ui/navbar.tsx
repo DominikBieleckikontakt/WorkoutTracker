@@ -132,7 +132,7 @@ const Navbar = () => {
               <span className="sr-only">Toggle theme</span>
             </Button>
             <Button asChild className="rounded-xl z-10">
-              <Link href="#" className="text-white">
+              <Link href="/authentication/login" className="text-white">
                 Get Started
               </Link>
             </Button>
@@ -192,7 +192,7 @@ const Navbar = () => {
             </div>
             <div className="flex items-center gap-5 mt-5">
               <Button asChild className="rounded-xl z-10 flex-1">
-                <Link href="#" className="text-white">
+                <Link href="/authentication/login" className="text-white">
                   Get Started
                 </Link>
               </Button>
