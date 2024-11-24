@@ -26,7 +26,13 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <AuthProvider>{children}</AuthProvider>
-          <Toaster position="bottom-center" reverseOrder={false} />
+          <Toaster
+            position="bottom-center"
+            reverseOrder={false}
+            toastOptions={{
+              className: "bg-background text-foreground",
+            }}
+          />
         </ThemeProvider>
       </body>
     </html>

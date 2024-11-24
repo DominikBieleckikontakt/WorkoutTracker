@@ -6,6 +6,13 @@ import { useRouter } from "next/navigation";
 import useUserEmailStore from "@/lib/store/useUserEmailStore";
 import { getUser } from "@/actions/getUser";
 import { UserType } from "@/types";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+import DashboardSidebar from "@/components/dashboard/sidebar";
+import Cards from "@/components/dashboard/cards";
 
 const DashboardPage = () => {
   const { data: session } = useSession();
@@ -25,13 +32,21 @@ const DashboardPage = () => {
         userData.isNewUser && router.push("/onboarding");
       });
     }
-    // console.log(session);
-    // if (!session) {
-    //   router.push("/authentication/login");
-    // }
   }, [session]);
 
-  return <div>Hello</div>;
+  return (
+    <SidebarProvider defaultOpen={false}>
+      <DashboardSidebar />
+      <SidebarInset>
+        <header className="bg-sidebar text-sidebar-foreground border-b border-sidebar-border -ml-10 py-3">
+          <SidebarTrigger className="ml-16" />
+        </header>
+        <main className="w-full mt-24 mb-24">
+          <Cards />
+        </main>
+      </SidebarInset>
+    </SidebarProvider>
+  );
 };
 
 export default DashboardPage;

@@ -154,9 +154,9 @@ const LoginForm = () => {
             </form>
           </Form>
           <div className="flex space-x-3 items-center">
-            <div className="h-[2px] bg-gray-200 w-full" />
+            <div className="h-[2px] bg-gray-200 w-full dark:bg-gray-600" />
             <div className="text-sm text-gray-400 font-semibold">OR</div>
-            <div className="h-[2px] bg-gray-200 w-full" />
+            <div className="h-[2px] bg-gray-200 w-full dark:bg-gray-600" />
           </div>
           <div>
             <Button
