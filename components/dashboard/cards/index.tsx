@@ -3,19 +3,14 @@ import React, { useState } from "react";
 import {
   DndContext,
   closestCenter,
-  useDraggable,
   useDroppable,
   DragOverlay,
 } from "@dnd-kit/core";
-import {
-  SortableContext,
-  rectSortingStrategy,
-  sortableKeyboardCoordinates,
-  arrayMove,
-} from "@dnd-kit/sortable";
+import { SortableContext, rectSortingStrategy } from "@dnd-kit/sortable";
 
 import DraggableCard from "../draggable-card";
 import StepsCard from "./steps-card";
+import NutritionCard from "./nutrition-card";
 
 interface Card {
   id: string;
@@ -25,7 +20,7 @@ interface Card {
 const Cards = () => {
   const [columns, setColumns] = useState<Record<string, Card[]>>({
     column1: [{ id: "1", content: <StepsCard /> }],
-    column2: [{ id: "2", content: "Card 2" }],
+    column2: [{ id: "2", content: <NutritionCard /> }],
     column3: [{ id: "3", content: "Card 3" }],
     column4: [{ id: "4", content: "Card 4" }],
     column5: [{ id: "5", content: "Card 5" }],
@@ -73,7 +68,7 @@ const Cards = () => {
 
     setActiveCard(null);
 
-    // Here will be save to db
+    // TODO: Save state of layout to database
   };
 
   return (
@@ -94,9 +89,12 @@ const Cards = () => {
                 strategy={rectSortingStrategy}
               >
                 {columns[columnId].map((card) => (
-                  <DraggableCard key={card.id} id={`${columnId}-${card.id}`}>
-                    {card.content}
-                  </DraggableCard>
+                  <div className="relative w-full h-full" key={card.id}>
+                    <DraggableCard id={`${columnId}-${card.id}`}>
+                      {card.content}
+                    </DraggableCard>
+                    <div className="w-full h-full absolute top-0 left-0 border-2 border-dashed border-sidebar-border rounded-lg" />
+                  </div>
                 ))}
               </SortableContext>
             </DroppableColumn>
