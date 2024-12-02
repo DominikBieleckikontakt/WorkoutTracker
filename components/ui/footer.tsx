@@ -13,23 +13,28 @@ const Footer = () => {
               PulseFit<span className="text-primary">.</span>
             </Link>
           </h3>
+          <p className="text-sm font-light">
+            Track your workouts, monitor your progress, and achieve your fitness
+            goals with ease. Our premium app is designed to keep you motivated
+            and on track every step of the way.
+          </p>
         </div>
         <div>
           <ul className="grid gap-2">
             <li className="font-semibold">
-              <Link href="#">Product</Link>
+              <p>Product</p>
             </li>
             <li className="text-foreground/80 hover:text-foreground duration-300">
-              <Link href="#">Dashboard</Link>
+              <Link href="/authentication/login">Dashboard</Link>
             </li>
             <li className=" text-foreground/80 hover:text-foreground duration-300">
-              <Link href="#">Features</Link>
+              <Link href="/#features">Features</Link>
             </li>
             <li className=" text-foreground/80 hover:text-foreground duration-300">
-              <Link href="#">Pricing</Link>
+              <Link href="/#pricing">Pricing</Link>
             </li>
             <li className=" text-foreground/80 hover:text-foreground duration-300">
-              <Link href="#">Help</Link>
+              <Link href="/contact">Help</Link>
             </li>
           </ul>
         </div>
@@ -45,7 +50,7 @@ const Footer = () => {
               <Link href="#">Careers</Link>
             </li>
             <li className=" text-foreground/80 hover:text-foreground duration-300">
-              <Link href="#">Contact Us</Link>
+              <Link href="/contact">Contact Us</Link>
             </li>
           </ul>
         </div>

@@ -6,14 +6,14 @@ import { Button } from "../ui/button";
 
 const Hero = () => {
   return (
-    <div className="mb-48 mt-64">
+    <div className="mb-48 mt-80">
       <div className="relative mt-24">
         <Image
           src="/icons/bicycle_icon.png"
           alt="bicycle"
           width={60}
           height={60}
-          className="absolute -top-16 left-12 opacity-50 2xl:opacity-100 2xl:-top-8 2xl:left-36 bg-red-100 rounded-full"
+          className="absolute -top-16 left-12 opacity-50 2xl:opacity-100 2xl:-top-8 2xl:left-36 bg-red-100 dark:bg-red-800 rounded-full"
         />
       </div>
       <div className="relative">
@@ -40,7 +40,7 @@ const Hero = () => {
           alt="bicycle"
           width={70}
           height={70}
-          className="absolute top-72 right-16 opacity-50 2xl:opacity-100 2xl:top-3 2xl:right-36 bg-green-100 rounded-full p-3 -z-10"
+          className="absolute top-72 right-16 opacity-50 2xl:opacity-100 2xl:top-3 2xl:right-36 bg-green-100 dark:bg-green-700 rounded-full p-3 -z-10"
         />
       </div>
       <div className="max-w-[1100px] mx-5 lg:mx-auto">

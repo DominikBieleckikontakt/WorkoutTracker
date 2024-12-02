@@ -35,7 +35,6 @@ export const addUserData = async (email: string, userFormData: string[]) => {
 
     return { status: "success", message: "User data added successfully" };
   } catch (error) {
-    console.log(error);
     return { status: "error", message: "Failed to add user data" };
   }
 };

@@ -29,7 +29,12 @@ const SidebarMyFooter = () => {
       <SidebarMenuItem>
         <SidebarMenuButton
           className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground text-base"
-          onClick={() => signOut()}
+          onClick={async () =>
+            await signOut({
+              redirect: true,
+              callbackUrl: "/authentication/login",
+            })
+          }
         >
           <LogOut className="!size-5.5 -ml-[3px]" />
           <span>Log out</span>

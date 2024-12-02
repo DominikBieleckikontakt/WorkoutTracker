@@ -14,7 +14,7 @@ const NutritionCard = () => {
   return (
     <div className="mx-5">
       <h4 className="text-xl font-semibold mb-2">Nutrition values</h4>
-      <div className="space-y-3">
+      <div className="space-y-7">
         <NutritionProgress
           nutrition={carbs}
           nutritionGoal={carbsGoal}
@@ -47,18 +47,20 @@ export const NutritionProgress = ({
   const toPercent = (value: number, total: number) => (value * 100) / total;
 
   return (
-    <div className="space-y-1 relative">
+    <div className="space-y-1">
       <p className="text-lg">{nutritionName}:</p>
-      <Progress
-        value={
-          toPercent(nutrition, nutritionGoal) >= 100
-            ? 100
-            : toPercent(nutrition, nutritionGoal)
-        }
-        className="h-5"
-      />
-      <div className="font-semibold text-foreground absolute top-7 left-[40%] text-sm">
-        {nutrition} / {nutritionGoal}
+      <div className="relative -top-1">
+        <Progress
+          value={
+            toPercent(nutrition, nutritionGoal) >= 100
+              ? 100
+              : toPercent(nutrition, nutritionGoal)
+          }
+          className="h-5 bg-gray-200 dark:bg-neutral-700 absolute top-0 left-0"
+        />
+        <div className="font-semibold text-foreground absolute top-0 left-1/2 -translate-x-1/2 text-sm">
+          {nutrition} / {nutritionGoal}
+        </div>
       </div>
     </div>
   );

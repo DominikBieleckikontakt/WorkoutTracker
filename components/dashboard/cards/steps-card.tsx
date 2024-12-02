@@ -7,9 +7,9 @@ const StepsCard = () => {
   const [goalSteps, setGoalSteps] = useState(10000);
 
   return (
-    <div className="mx-5">
+    <div className="mx-5 h-[calc(100%-2.5rem)]">
       <h4 className="text-xl font-semibold mb-3">Today's steps</h4>
-      <div className="flex justify-between">
+      <div className="flex justify-between h-full">
         <div className="flex flex-col justify-between">
           <div className="space-y-1">
             <p>

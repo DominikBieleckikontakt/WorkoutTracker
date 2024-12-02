@@ -341,7 +341,7 @@ const Plans = () => {
             animate="center"
             exit="exit"
             variants={variants}
-            transition={{ duration: 1 }}
+            transition={{ duration: 0.5, ease: "linear" }}
           >
             <TabsContent value="monthly" className="w-full">
               <div className="grid lg:grid-cols-3 gap-10">

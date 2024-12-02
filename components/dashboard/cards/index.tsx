@@ -21,10 +21,12 @@ const Cards = () => {
   const [columns, setColumns] = useState<Record<string, Card[]>>({
     column1: [{ id: "1", content: <StepsCard /> }],
     column2: [{ id: "2", content: <NutritionCard /> }],
-    column3: [{ id: "3", content: "Card 3" }],
-    column4: [{ id: "4", content: "Card 4" }],
-    column5: [{ id: "5", content: "Card 5" }],
-    column6: [{ id: "6", content: "Card 6" }],
+    column3: [{ id: "3", content: "Card 3" }], // Calories eaten and burned
+    column4: [{ id: "4", content: "Card 4" }], // Current weight, weight goal, time to achive
+    column5: [{ id: "5", content: "Card 5" }], // Last activity
+    column6: [{ id: "6", content: "Card 6" }], // Last sleep
+    column7: [{ id: "7", content: "Card 7" }], // Proposed workouts (from youtube)
+    column8: [{ id: "8", content: "Card 8" }], // Current workouts (callendar?)
   });
   const [activeCard, setActiveCard] = useState<Card | null>(null);
 
@@ -123,7 +125,14 @@ const DroppableColumn = ({
     id,
   });
 
-  return <div ref={setNodeRef}>{children}</div>;
+  return (
+    <div
+      ref={setNodeRef}
+      className={`${id === "column3" ? "md:col-span-2" : "col-span-1"}`}
+    >
+      {children}
+    </div>
+  );
 };
 
 export default Cards;

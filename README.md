@@ -14,6 +14,13 @@ pnpm dev
 bun dev
 ```
 
+Copy and paste this to .env.local
+SUPABASE*DATABASE_PASSWORD=ze7Vz27tBPRx7iiS
+DATABASE_URL=postgresql://postgres.texalgokuuscztqtrujv:ze7Vz27tBPRx7iiS@aws-0-eu-central-1.pooler.supabase.com:6543/postgres
+AUTH_SECRET="bbU1NgXCknBNSSs3KoTBXLLeqBsXridKDj8hRASDCDw="
+AUTH_GOOGLE_ID=307830411125-81nv82a7t90j9v2fpep1stpp85v1e56i.apps.googleusercontent.com
+AUTH_GOOGLE_SECRET="GOCSPX-fhjmMzGy3*-ud0HVM15iPxFI1jqL" (\_ instead of (\*))
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.

@@ -92,24 +92,19 @@ export const authOptions = {
         token.id = user.id;
         token.name = user.name;
         token.email = user.email;
-        token.subscriptionLevel = user.subscriptionLevel;
+        token.subscriptionLevel = user.subscriptionLevel || "Basic";
       }
 
       return token;
     },
     async session({ session, token }: { session: Session; token: any }) {
       // Add subscriptionLevel from token to session
-      if (token) {
-        session.user.id = token.id;
-        session.user.name = token.name;
-        session.user.email = token.email;
-        session.user.subscriptionLevel = token.subscriptionLevel;
-      }
+
+      session.user.id = token.id;
+      session.user.name = token.name;
+      session.user.email = token.email;
 
       return session;
-    },
-    async redirect({ url, baseUrl }: { url: string; baseUrl: string }) {
-      return url.startsWith(baseUrl) ? url : baseUrl + "/dashboard";
     },
   },
   pages: {

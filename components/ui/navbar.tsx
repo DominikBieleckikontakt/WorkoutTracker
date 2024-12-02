@@ -21,10 +21,6 @@ const Navbar = () => {
     });
   };
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
-
   return (
     <nav className="bg-background/80 backdrop-blur-md w-full fixed top-0 left-0 right-0 z-50 border-b-2 border-background-100 py-5">
       <div className="px-16">
@@ -131,8 +127,15 @@ const Navbar = () => {
               <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
               <span className="sr-only">Toggle theme</span>
             </Button>
-            <Button asChild className="rounded-xl z-10">
-              <Link href="/authentication/login" className="text-white">
+            <Button
+              asChild
+              className="text-white rounded-xl hover:bg-primary/70 duration-300 z-10 relative after:content-[''] after:absolute after:w-full after:h-full after:-z-10 after:rounded-lg after:bg-primary after:blur-sm transition hover:after:blur-[6px] after:transition after:duration-300"
+            >
+              <Link
+                href="/authentication/login"
+                className="text-white"
+                prefetch
+              >
                 Get Started
               </Link>
             </Button>
@@ -191,7 +194,10 @@ const Navbar = () => {
               </Link>
             </div>
             <div className="flex items-center gap-5 mt-5">
-              <Button asChild className="rounded-xl z-10 flex-1">
+              <Button
+                asChild
+                className="flex-1 text-white rounded-xl hover:bg-primary/70 duration-300 z-10 relative after:content-[''] after:absolute after:w-full after:h-full after:-z-10 after:rounded-lg after:bg-primary after:blur-sm transition hover:after:blur-[6px] after:transition after:duration-300"
+              >
                 <Link href="/authentication/login" className="text-white">
                   Get Started
                 </Link>
