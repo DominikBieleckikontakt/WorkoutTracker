@@ -12,7 +12,7 @@ const NutritionCard = () => {
   const [fatGoal, setFatGoal] = useState(50);
 
   return (
-    <div className="mx-5">
+    <div className="mx-5 pb-5">
       <h4 className="text-xl font-semibold mb-2">Nutrition values</h4>
       <div className="space-y-7">
         <NutritionProgress

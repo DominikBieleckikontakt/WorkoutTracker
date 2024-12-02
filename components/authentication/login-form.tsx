@@ -68,7 +68,6 @@ const LoginForm = () => {
     });
 
     if (result?.error) {
-      console.log(result);
       setError(result.error);
       setIsLoading(false);
     } else {
