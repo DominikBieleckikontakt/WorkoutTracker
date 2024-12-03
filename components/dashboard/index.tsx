@@ -43,7 +43,7 @@ const MainDashboard = () => {
         <header className="bg-sidebar text-sidebar-foreground border-b border-sidebar-border -ml-10 py-3">
           <SidebarTrigger className="ml-16" />
         </header>
-        <main className="w-full mt-24 mb-24">
+        <main className="w-full my-16 md:my-24">
           <Cards />
         </main>
       </SidebarInset>

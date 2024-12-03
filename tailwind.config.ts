@@ -16,6 +16,10 @@ const config: Config = {
         "5.5": "1.375rem", // Example: 22px
       },
       keyframes: {
+        progress: {
+          "0%": { width: "0%" },
+          "100%": { width: "100%" },
+        },
         "accordion-down": {
           from: {
             height: "0",
@@ -45,6 +49,7 @@ const config: Config = {
         scroll: "scroll 30s linear infinite",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        progress: "progress 3s ease-in-out",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

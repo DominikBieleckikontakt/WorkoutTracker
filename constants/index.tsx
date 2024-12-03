@@ -98,3 +98,6 @@ export const plansLists = {
     "Exclusive community perks",
   ],
 };
+
+export const toPercent = (value: number, total: number) =>
+  (value * 100) / total;

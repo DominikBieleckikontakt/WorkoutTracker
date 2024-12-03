@@ -1,17 +1,34 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Footprints } from "lucide-react";
 
 const StepsCard = () => {
   const [currentSteps, setCurrentSteps] = useState(3500);
   const [goalSteps, setGoalSteps] = useState(10000);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const targetProgress = Math.min((currentSteps / goalSteps) * 100, 100);
+    let currentProgress = 0;
+
+    const interval = setInterval(() => {
+      currentProgress += 1;
+      if (currentProgress >= targetProgress) {
+        currentProgress = targetProgress;
+        clearInterval(interval);
+      }
+      setProgress(currentProgress);
+    }, 25);
+
+    return () => clearInterval(interval);
+  }, [currentSteps, goalSteps]);
 
   return (
-    <div className="mx-5">
+    <div>
       <h4 className="text-xl font-semibold mb-3">Today's steps</h4>
-      <div className="flex justify-between h-full">
-        <div className="flex flex-col justify-between">
-          <div className="space-y-1">
+      <div className="flex justify-between">
+        <div className="flex justify-between flex-col">
+          <div className="">
             <p>
               Current:{" "}
               <span className="font-semibold text-primary">{currentSteps}</span>
@@ -52,12 +69,11 @@ const StepsCard = () => {
               className="stroke-current text-primary"
               strokeWidth="2"
               strokeDasharray="100"
-              strokeDashoffset={`${
-                currentSteps < goalSteps
-                  ? `calc(100 - ${(currentSteps / goalSteps) * 100})`
-                  : 0
-              } `}
+              strokeDashoffset={`${100 - progress}`}
               strokeLinecap="round"
+              style={{
+                transition: "stroke-dashoffset 0.1s linear",
+              }}
             ></circle>
           </svg>
 
@@ -65,7 +81,7 @@ const StepsCard = () => {
           <div className="absolute grid top-1/2 start-1/2 transform -translate-y-1/2 -translate-x-1/2 ">
             <Footprints className="mx-auto mb-2 size-12 text-primary" />
             <span className="text-center text-2xl font-bold text-primary">
-              {Math.floor((currentSteps / goalSteps) * 100)}%
+              {Math.floor(progress)}%
             </span>
           </div>
         </div>

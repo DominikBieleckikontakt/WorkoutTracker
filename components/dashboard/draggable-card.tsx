@@ -28,7 +28,9 @@ const DraggableCard = ({
 
   return (
     <div
-      className={`${className} z-10 p-5 bg-sidebar border-sidebar-border text-foreground rounded-lg relative shadow w-full h-full`}
+      className={`${
+        className && className
+      } z-10 p-5 bg-sidebar border-sidebar-border text-foreground rounded-lg relative shadow w-full h-full`}
       ref={setNodeRef}
       style={style}
     >

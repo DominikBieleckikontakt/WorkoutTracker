@@ -11,6 +11,7 @@ import { SortableContext, rectSortingStrategy } from "@dnd-kit/sortable";
 import DraggableCard from "../draggable-card";
 import StepsCard from "./steps-card";
 import NutritionCard from "./nutrition-card";
+import CaloriesBalance from "./calories-balance";
 
 interface Card {
   id: string;
@@ -74,7 +75,7 @@ const Cards = () => {
   };
 
   return (
-    <div className="w-full h-screen">
+    <div className="w-full">
       <DndContext
         collisionDetection={closestCenter}
         onDragStart={handleDragStart}
@@ -92,7 +93,10 @@ const Cards = () => {
               >
                 {columns[columnId].map((card) => (
                   <div className="relative w-full h-full" key={card.id}>
-                    <DraggableCard id={`${columnId}-${card.id}`}>
+                    <DraggableCard
+                      id={`${columnId}-${card.id}`}
+                      className="h-full w-full"
+                    >
                       {card.content}
                     </DraggableCard>
                     <div className="w-full h-full absolute top-0 left-0 border-2 border-dashed border-sidebar-border rounded-lg" />
@@ -125,14 +129,7 @@ const DroppableColumn = ({
     id,
   });
 
-  return (
-    <div
-      ref={setNodeRef}
-      className={`${id === "column3" ? "md:col-span-2" : "col-span-1"}`}
-    >
-      {children}
-    </div>
-  );
+  return <div ref={setNodeRef}>{children}</div>;
 };
 
 export default Cards;
