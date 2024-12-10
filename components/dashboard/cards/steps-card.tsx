@@ -24,11 +24,11 @@ const StepsCard = () => {
   }, [currentSteps, goalSteps]);
 
   return (
-    <div>
+    <div className="h-full">
       <h4 className="text-xl font-semibold mb-3">Today's steps</h4>
-      <div className="flex justify-between">
+      <div className="flex justify-between h-[calc(100%-2.4rem)]">
         <div className="flex justify-between flex-col">
-          <div className="">
+          <div>
             <p>
               Current:{" "}
               <span className="font-semibold text-primary">{currentSteps}</span>
@@ -45,11 +45,12 @@ const StepsCard = () => {
             </span>
           </p>
         </div>
-        <div className="relative size-40">
+        <div className="relative size-44 mb-3 h-full">
           <svg
             className="size-full -rotate-90"
             viewBox="0 0 36 36"
             xmlns="http://www.w3.org/2000/svg"
+            style={{ height: "100%", width: "100%" }}
           >
             {/* Background Circle */}
             <circle

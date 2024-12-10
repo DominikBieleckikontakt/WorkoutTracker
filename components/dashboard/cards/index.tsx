@@ -11,7 +11,8 @@ import { SortableContext, rectSortingStrategy } from "@dnd-kit/sortable";
 import DraggableCard from "../draggable-card";
 import StepsCard from "./steps-card";
 import NutritionCard from "./nutrition-card";
-import CaloriesBalance from "./calories-balance";
+import CaloriesBalance from "./todays-stats";
+import TodaysStats from "./todays-stats";
 
 interface Card {
   id: string;
@@ -22,10 +23,10 @@ const Cards = () => {
   const [columns, setColumns] = useState<Record<string, Card[]>>({
     column1: [{ id: "1", content: <StepsCard /> }],
     column2: [{ id: "2", content: <NutritionCard /> }],
-    column3: [{ id: "3", content: "Card 3" }], // Calories eaten and burned
+    column3: [{ id: "3", content: <TodaysStats /> }], // Todays stats: sleep, calories burned, last training, if training day
     column4: [{ id: "4", content: "Card 4" }], // Current weight, weight goal, time to achive
-    column5: [{ id: "5", content: "Card 5" }], // Last activity
-    column6: [{ id: "6", content: "Card 6" }], // Last sleep
+    column5: [{ id: "5", content: "Card 5" }], // Heart rate
+    column6: [{ id: "6", content: "Card 6" }], // Drinked water
     column7: [{ id: "7", content: "Card 7" }], // Proposed workouts (from youtube)
     column8: [{ id: "8", content: "Card 8" }], // Current workouts (callendar?)
   });
