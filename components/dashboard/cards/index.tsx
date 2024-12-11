@@ -13,6 +13,8 @@ import StepsCard from "./steps-card";
 import NutritionCard from "./nutrition-card";
 import CaloriesBalance from "./todays-stats";
 import TodaysStats from "./todays-stats";
+import WeightCard from "./weight-card";
+import HeartRate from "./heart-rate";
 
 interface Card {
   id: string;
@@ -22,10 +24,10 @@ interface Card {
 const Cards = () => {
   const [columns, setColumns] = useState<Record<string, Card[]>>({
     column1: [{ id: "1", content: <StepsCard /> }],
-    column2: [{ id: "2", content: <NutritionCard /> }],
-    column3: [{ id: "3", content: <TodaysStats /> }], // Todays stats: sleep, calories burned, last training, if training day
-    column4: [{ id: "4", content: "Card 4" }], // Current weight, weight goal, time to achive
-    column5: [{ id: "5", content: "Card 5" }], // Heart rate
+    column2: [{ id: "2", content: <TodaysStats /> }],
+    column3: [{ id: "3", content: <NutritionCard /> }],
+    column4: [{ id: "4", content: <WeightCard /> }],
+    column5: [{ id: "5", content: <HeartRate /> }],
     column6: [{ id: "6", content: "Card 6" }], // Drinked water
     column7: [{ id: "7", content: "Card 7" }], // Proposed workouts (from youtube)
     column8: [{ id: "8", content: "Card 8" }], // Current workouts (callendar?)
