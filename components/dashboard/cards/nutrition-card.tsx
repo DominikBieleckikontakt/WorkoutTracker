@@ -73,7 +73,7 @@ export const NutritionProgress = ({
 
   useEffect(() => {
     const targetProgress = Math.min((nutrition / nutritionGoal) * 100, 100);
-    const animationDuration = 1000;
+    const animationDuration = 500;
     const intervalDelay = 40;
     const totalSteps = (animationDuration / intervalDelay) * 2;
     const step = targetProgress / totalSteps;
@@ -81,7 +81,7 @@ export const NutritionProgress = ({
     let currentProgress = 0;
 
     const interval = setInterval(() => {
-      currentProgress += step;
+      currentProgress += step / 2;
       if (currentProgress >= targetProgress) {
         currentProgress = targetProgress;
         clearInterval(interval);

@@ -5,6 +5,8 @@ import {
   closestCenter,
   useDroppable,
   DragOverlay,
+  DragStartEvent,
+  DragEndEvent,
 } from "@dnd-kit/core";
 import { SortableContext, rectSortingStrategy } from "@dnd-kit/sortable";
 
@@ -16,6 +18,7 @@ import TodaysStats from "./todays-stats";
 import WeightCard from "./weight-card";
 import HeartRate from "./heart-rate";
 import WaterCard from "./water-card";
+import ProposedWorkouts from "./proposed-workouts";
 
 interface Card {
   id: string;
@@ -30,23 +33,25 @@ const Cards = () => {
     column4: [{ id: "4", content: <WeightCard /> }],
     column5: [{ id: "5", content: <HeartRate /> }],
     column6: [{ id: "6", content: <WaterCard /> }],
-    column7: [{ id: "7", content: "Card 7" }], // Proposed workouts (from youtube)
+    column7: [{ id: "7", content: <ProposedWorkouts /> }], // Proposed workouts (from youtube)
     column8: [{ id: "8", content: "Card 8" }], // Current workouts (callendar?)
   });
   const [activeCard, setActiveCard] = useState<Card | null>(null);
 
-  const handleDragStart = (event: any) => {
+  const handleDragStart = (event: DragStartEvent) => {
     const { active } = event;
-    const [columnId, cardId] = active.id.split("-");
+    const activeId = active.id as string;
+    const [columnId, cardId] = activeId.split("-");
     const card = columns[columnId].find((c) => c.id === cardId);
     if (card) setActiveCard(card);
   };
 
-  const handleDragEnd = (event: any) => {
+  const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
+    const activeId = active.id as string;
     if (!over) return;
 
-    const [fromColumnId, cardId] = active.id.split("-");
+    const [fromColumnId, cardId] = activeId.split("-");
     const toColumnId = over.id;
 
     if (fromColumnId === toColumnId) return; // No movement

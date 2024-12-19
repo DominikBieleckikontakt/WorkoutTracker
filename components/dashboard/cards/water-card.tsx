@@ -12,8 +12,13 @@ const WaterCard = () => {
   const [glasses, setGlasses] = useState<number[]>([]);
   const [mlPerGlass, setMlPerGlass] = useState(250);
 
+  const [isClicked, setIsClicked] = useState(false);
+
   const addGlass = () => {
     setGlasses((prev) => [...prev, prev.length + 1]);
+
+    setIsClicked(true);
+    setTimeout(() => setIsClicked(false), 150);
   };
 
   const removeGlass = () => {
@@ -26,7 +31,9 @@ const WaterCard = () => {
       <div className="flex flex-wrap items-center gap-2">
         <button
           onClick={addGlass}
-          className="flex items-center justify-center size-16 rounded-full shadow-lg transition duration-300 bg-sidebar hover:bg-sidebar/60 hover:scale-105"
+          className={`flex items-center justify-center size-16 rounded-full shadow-lg transition duration-300 bg-sidebar hover:bg-sidebar/60 hover:scale-105 ${
+            isClicked ? "hover:scale-75" : ""
+          }`}
         >
           <GlassWater className="size-10 text-foreground/30" />
           <Plus className="absolute w-6 h-6 text-black dark:invert" />
