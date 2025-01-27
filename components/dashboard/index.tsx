@@ -22,7 +22,6 @@ const MainDashboard = () => {
   const setEmail = useUserEmailStore((state: any) => state.changeEmail);
   useEffect(() => {
     if (session) {
-      console.log(session);
       getUser(session.user.email!).then((res) => {
         const userDataFromDB = res.data as UserType;
 

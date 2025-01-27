@@ -101,3 +101,13 @@ export const plansLists = {
 
 export const toPercent = (value: number, total: number) =>
   (value * 100) / total;
+
+export const DEFAULT_LAYOUT = {
+  column1: [{ id: "1", type: "StepsCard" }],
+  column2: [{ id: "2", type: "TodaysStats" }],
+  column3: [{ id: "3", type: "NutritionCard" }],
+  column4: [{ id: "4", type: "WeightCard" }],
+  column5: [{ id: "5", type: "HeartRate" }],
+  column6: [{ id: "6", type: "WaterCard" }],
+  column7: [{ id: "7", type: "ProposedWorkouts" }],
+};

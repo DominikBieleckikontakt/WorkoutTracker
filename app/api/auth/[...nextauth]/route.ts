@@ -59,7 +59,6 @@ export const authOptions = {
           bcrypt.compareSync(credentials?.password as string, user.password!)
         ) {
           // Add rememberMe to user
-
           return user;
         } else {
           throw new Error("Invalid password");
@@ -72,22 +71,35 @@ export const authOptions = {
   },
   callbacks: {
     async signIn({ user, profile }: any) {
+      // Check if the user exists in the database
       const existingUser = await db.query.users.findFirst({
         where: (users, { eq }) => eq(users.email, user?.email as string),
       });
 
       if (!existingUser) {
-        await db.insert(users).values({
-          email: profile?.email as string,
-          name: profile?.name as string,
-          subscriptionLevel: "Basic",
-          isNewUser: true,
-        });
+        // If not found, create the user
+        const newUser = await db
+          .insert(users)
+          .values({
+            email: profile?.email as string,
+            name: profile?.name as string,
+            subscriptionLevel: "Basic",
+            isNewUser: true,
+          })
+          .returning()
+          .then((result) => result[0]);
+
+        // Update the user object with the correct user ID from the database
+        user.id = newUser.id;
+      } else {
+        // If user exists, update the user ID in the session
+        user.id = existingUser.id;
       }
+
       return true;
     },
     async jwt({ token, user }: { token: any; user?: User }) {
-      // Add subscriptionLevel to token
+      // Add user data to token
       if (user) {
         token.id = user.id;
         token.name = user.name;
@@ -98,11 +110,11 @@ export const authOptions = {
       return token;
     },
     async session({ session, token }: { session: Session; token: any }) {
-      // Add subscriptionLevel from token to session
-
+      // Add user data from token to session
       session.user.id = token.id;
       session.user.name = token.name;
       session.user.email = token.email;
+      session.user.subscriptionLevel = token.subscriptionLevel || "Basic";
 
       return session;
     },

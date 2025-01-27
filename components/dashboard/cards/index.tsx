@@ -13,7 +13,6 @@ import { SortableContext, rectSortingStrategy } from "@dnd-kit/sortable";
 import DraggableCard from "../draggable-card";
 import StepsCard from "./steps-card";
 import NutritionCard from "./nutrition-card";
-import CaloriesBalance from "./todays-stats";
 import TodaysStats from "./todays-stats";
 import WeightCard from "./weight-card";
 import HeartRate from "./heart-rate";
@@ -33,8 +32,7 @@ const Cards = () => {
     column4: [{ id: "4", content: <WeightCard /> }],
     column5: [{ id: "5", content: <HeartRate /> }],
     column6: [{ id: "6", content: <WaterCard /> }],
-    column7: [{ id: "7", content: <ProposedWorkouts /> }], // Proposed workouts (from youtube)
-    column8: [{ id: "8", content: "Card 8" }], // Current workouts (callendar?)
+    column7: [{ id: "7", content: <ProposedWorkouts /> }],
   });
   const [activeCard, setActiveCard] = useState<Card | null>(null);
 

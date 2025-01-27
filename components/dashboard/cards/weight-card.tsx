@@ -23,7 +23,7 @@ const WeightCard = () => {
         </div>
         <div>
           <p>
-            You already lost:{" "}
+            You already {weightLost < 0 ? "lost" : "gained"}:{" "}
             <span
               className={`font-semibold ${
                 weightLost < 0 ? "text-red-500" : "text-green-500"
