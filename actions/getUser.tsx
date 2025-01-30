@@ -13,6 +13,6 @@ export const getUser = async (email: string) => {
 
     return { message: "User found", data: userData };
   } catch (error) {
-    return { message: "User not found", data: error };
+    throw new Error("User not found");
   }
 };

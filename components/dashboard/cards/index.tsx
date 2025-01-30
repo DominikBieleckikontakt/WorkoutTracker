@@ -24,7 +24,7 @@ interface Card {
   content: string | React.ReactNode;
 }
 
-const Cards = () => {
+const Cards = ({ googleFitData }: { googleFitData?: any }) => {
   const [columns, setColumns] = useState<Record<string, Card[]>>({
     column1: [{ id: "1", content: <StepsCard /> }],
     column2: [{ id: "2", content: <TodaysStats /> }],

@@ -15,7 +15,6 @@ import {
 } from "../ui/select";
 import { QuestionsType } from "@/types";
 import { addUserData } from "@/actions/addUserData";
-import useUserEmailStore from "@/lib/store/useUserEmailStore";
 
 const questions: QuestionsType[] = [
   {
@@ -72,16 +71,19 @@ const StartingQuestions = () => {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const userEmail = useUserEmailStore((state: any) => state.email);
-
-  const { data: session }: { data: any } = useSession();
+  const { data: session, status: sessionStatus }: { data: any; status: any } =
+    useSession();
 
   useEffect(() => {
+    if (sessionStatus === "loading") return;
     if (!session) {
       router.push("/authentication/login");
-      return;
     }
-  }, []);
+
+    if (!session.user.isNewUser) {
+      router.push("/dashboard");
+    }
+  }, [sessionStatus, session, router]);
 
   const handleSubmit = async () => {
     const currentSchema = questions[currentQuestion].schema;
@@ -111,7 +113,7 @@ const StartingQuestions = () => {
   const finishTest = async () => {
     try {
       const finalAnswers = [...answers, answer];
-      const status = await addUserData(userEmail, finalAnswers);
+      const status = await addUserData(session.user.email, finalAnswers);
       if (status.status === "success") {
         router.push("/dashboard");
       }
@@ -124,9 +126,7 @@ const StartingQuestions = () => {
     <>
       <div className="p-5 rounded-md bg-white dark:bg-black/30 shadow-md space-y-8 min-w-72 sm:min-w-96">
         <div className="space-y-3">
-          <p className="font-semibold">
-            {questions[currentQuestion].question || "Here is an question?"}
-          </p>
+          <p className="font-semibold">{questions[currentQuestion].question}</p>
           <div>
             {questions[currentQuestion].isInput && (
               <Input

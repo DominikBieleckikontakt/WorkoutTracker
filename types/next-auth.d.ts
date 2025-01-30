@@ -6,6 +6,7 @@ declare module "next-auth" {
       id: string;
       subscriptionLevel: string;
       isNewUser: boolean;
+      googleAccessToken: string;
     } & DefaultSession["user"];
   }
 

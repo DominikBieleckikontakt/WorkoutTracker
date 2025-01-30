@@ -5,6 +5,8 @@ import { eq } from "drizzle-orm";
 
 import { userData, users } from "@/src/db/schema";
 import { UserType } from "@/types";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export const addUserData = async (email: string, userFormData: string[]) => {
   try {
@@ -12,6 +14,8 @@ export const addUserData = async (email: string, userFormData: string[]) => {
     const user = await db.query.users.findFirst({
       where: (users, { eq }) => eq(users.email, email),
     });
+
+    const session = await getServerSession(authOptions);
 
     const { id } = user as UserType;
 
@@ -32,6 +36,8 @@ export const addUserData = async (email: string, userFormData: string[]) => {
       .update(users)
       .set({ isNewUser: false })
       .where(eq(users.email, email));
+
+    session && (session.user.isNewUser = false);
 
     return { status: "success", message: "User data added successfully" };
   } catch (error) {

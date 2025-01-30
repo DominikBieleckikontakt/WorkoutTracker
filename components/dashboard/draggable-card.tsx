@@ -37,12 +37,12 @@ const DraggableCard = ({
       {children}
       <div className="absolute flex top-1 right-1 gap-2 items-center">
         <Edit className="size-4 opacity-60 cursor-pointer hover:opacity-100 duration-300" />
-        <Plus
+        {/* <Plus
           className="size-5 opacity-60 cursor-grab hover:opacity-100 duration-300"
           {...attributes}
           {...listeners}
           aria-label="Drag"
-        />
+        /> */}
       </div>
     </div>
   );

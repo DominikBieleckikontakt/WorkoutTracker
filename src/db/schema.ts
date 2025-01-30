@@ -22,6 +22,7 @@ export const users = pgTable("user", {
   image: text("image"),
   subscriptionLevel: text("subscriptionLevel").notNull().default("Basic"),
   isNewUser: boolean("isNewUser").notNull().default(true),
+  googleAccessToken: text("googleAccessToken"),
 });
 
 export const userData = pgTable("userData", {

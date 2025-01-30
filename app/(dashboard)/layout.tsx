@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import AuthProvider from "@/components/authentication/session-provider";
 import { Toaster } from "react-hot-toast";
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+import DashboardSidebar from "@/components/dashboard/sidebar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,7 +31,17 @@ export default function RootLayout({
           defaultTheme="light"
           disableTransitionOnChange
         >
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            <SidebarProvider defaultOpen={false}>
+              <DashboardSidebar />
+              <SidebarInset>
+                <header className="bg-sidebar text-sidebar-foreground border-b border-sidebar-border -ml-10 py-3">
+                  <SidebarTrigger className="ml-16" />
+                </header>
+                <main className="w-full my-16 md:my-24">{children}</main>
+              </SidebarInset>
+            </SidebarProvider>
+          </AuthProvider>
           <Toaster
             position="bottom-center"
             reverseOrder={false}
