@@ -37,7 +37,7 @@ const ProposedWorkouts = () => {
       <h4 className="text-xl font-semibold mb-3">
         Proposed workouts from youtube
       </h4>
-      <div className="overflow-x-auto max-sm:flex-wrap flex gap-10 max-sm:justify-center w-full">
+      <div className="max-sm:overflow-y-auto max-sm:max-h-64 sm:overflow-x-auto max-sm:flex-wrap flex gap-10 max-sm:justify-center w-full">
         {workoutElements.map((item, index) => (
           <div
             key={index}

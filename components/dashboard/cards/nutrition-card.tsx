@@ -1,21 +1,16 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import { Progress } from "@/components/ui/progress";
-import { toPercent } from "@/constants";
+import React from "react";
+import MyProgress from "@/components/ui/my-progress";
 
-const NutritionCard = () => {
-  const [carbs, setCarbs] = useState(88);
-  const [carbsGoal, setCarbsGoal] = useState(150);
-
-  const [proteins, setProteins] = useState(60);
-  const [proteinsGoal, setProteinsGoal] = useState(100);
-
-  const [fat, setFat] = useState(20);
-  const [fatGoal, setFatGoal] = useState(50);
-
-  const [caloriesEaten, setCaloriesEaten] = useState(2000);
-  const [caloriesEatenGoal, setCaloriesEatenGoal] = useState(2500);
-
+const NutritionCard = ({
+  carbs = 88,
+  carbsGoal = 150,
+  proteins = 60,
+  proteinsGoal = 100,
+  fat = 25,
+  fatGoal = 50,
+  caloriesEaten = 2000,
+  caloriesEatenGoal = 2500,
+}) => {
   return (
     <div className="">
       <h4 className="text-xl font-semibold mb-3">Nutrition values</h4>
@@ -28,23 +23,19 @@ const NutritionCard = () => {
               nutritionName="Carbs"
               progressBg="bg-purple-500"
             />
-            <div>
-              <NutritionProgress
-                nutrition={fat}
-                nutritionGoal={fatGoal}
-                nutritionName="Fat"
-                progressBg="bg-yellow-600"
-              />
-            </div>
-          </div>
-          <div>
             <NutritionProgress
-              nutrition={proteins}
-              nutritionGoal={proteinsGoal}
-              nutritionName="Proteins"
-              progressBg="bg-blue-600"
+              nutrition={fat}
+              nutritionGoal={fatGoal}
+              nutritionName="Fat"
+              progressBg="bg-yellow-600"
             />
           </div>
+          <NutritionProgress
+            nutrition={proteins}
+            nutritionGoal={proteinsGoal}
+            nutritionName="Proteins"
+            progressBg="bg-blue-600"
+          />
         </div>
         <div className="pt-5">
           <NutritionProgress
@@ -69,42 +60,11 @@ export const NutritionProgress = ({
   nutritionName: string;
   progressBg?: string;
 }) => {
-  const [nutritionProgress, setNutritionProgress] = useState(0);
-
-  useEffect(() => {
-    const targetProgress = Math.min((nutrition / nutritionGoal) * 100, 100);
-    const animationDuration = 500;
-    const intervalDelay = 40;
-    const totalSteps = (animationDuration / intervalDelay) * 2;
-    const step = targetProgress / totalSteps;
-
-    let currentProgress = 0;
-
-    const interval = setInterval(() => {
-      currentProgress += step / 2;
-      if (currentProgress >= targetProgress) {
-        currentProgress = targetProgress;
-        clearInterval(interval);
-      }
-      setNutritionProgress(currentProgress);
-    }, intervalDelay);
-
-    return () => clearInterval(interval);
-  }, [nutrition, nutritionGoal]);
-
   return (
     <div className="relative space-y-1">
       <p>{nutritionName}:</p>
       <div className="relative">
-        <Progress
-          value={nutritionProgress}
-          className="h-5 bg-gray-200 dark:bg-neutral-700 transition-all duration-300 ease-in-out"
-          progressBg={progressBg && progressBg}
-        />
-        <div className="font-semibold text-foreground absolute top-0 left-1/2 -translate-x-1/2 text-sm">
-          {Math.floor((nutritionProgress / 100) * nutritionGoal)} /{" "}
-          {nutritionGoal}
-        </div>
+        <MyProgress value={nutrition} max={nutritionGoal} color={progressBg} />
       </div>
     </div>
   );

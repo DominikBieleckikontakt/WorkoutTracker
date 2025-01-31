@@ -116,6 +116,10 @@ html {
     transition: filter 0.3s ease; /* Smooth transition */
   }
 
+  .slot[data-swapy-highlighted] {
+    border: 2px dashed var(--accent);
+  }
+
   .icon:hover {
     filter: hue-rotate(90deg) brightness(0.6);
   }
@@ -132,4 +136,10 @@ html {
   input[type="checkbox"] {
     transition: none;
   }
+}
+
+/* Drag and drop border under cards */
+[data-swapy-highlighted] {
+  border: 2px dashed hsl(var(--sidebar-border));
+  border-radius: var(--radius);
 }

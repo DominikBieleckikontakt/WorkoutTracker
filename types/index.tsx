@@ -39,3 +39,13 @@ export type UserType = {
   subscriptionLevel: string;
   isNewUser: boolean;
 };
+
+export type Card = {
+  id: string;
+  content: JSX.Element;
+};
+
+export type DraggableCardProps = {
+  id: string;
+  content: JSX.Element;
+};

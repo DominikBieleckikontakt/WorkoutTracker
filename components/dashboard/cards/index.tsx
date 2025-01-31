@@ -1,142 +1,70 @@
 "use client";
-import React, { useState } from "react";
-import {
-  DndContext,
-  closestCenter,
-  useDroppable,
-  DragOverlay,
-  DragStartEvent,
-  DragEndEvent,
-} from "@dnd-kit/core";
-import { SortableContext, rectSortingStrategy } from "@dnd-kit/sortable";
-
-import DraggableCard from "../draggable-card";
+import { useState, useEffect, useRef } from "react";
+import { createSwapy } from "swapy";
 import StepsCard from "./steps-card";
-import NutritionCard from "./nutrition-card";
 import TodaysStats from "./todays-stats";
+import NutritionCard from "./nutrition-card";
 import WeightCard from "./weight-card";
 import HeartRate from "./heart-rate";
 import WaterCard from "./water-card";
 import ProposedWorkouts from "./proposed-workouts";
+import DraggableCard from "../draggable-card";
+import { Card } from "@/types";
 
-interface Card {
-  id: string;
-  content: string | React.ReactNode;
-}
+const initialCards: Card[] = [
+  { id: "1", content: <StepsCard /> },
+  { id: "2", content: <TodaysStats /> },
+  { id: "3", content: <NutritionCard /> },
+  { id: "4", content: <WeightCard /> },
+  { id: "5", content: <HeartRate /> },
+  { id: "6", content: <WaterCard /> },
+  { id: "7", content: <ProposedWorkouts /> },
+];
 
-const Cards = ({ googleFitData }: { googleFitData?: any }) => {
-  const [columns, setColumns] = useState<Record<string, Card[]>>({
-    column1: [{ id: "1", content: <StepsCard /> }],
-    column2: [{ id: "2", content: <TodaysStats /> }],
-    column3: [{ id: "3", content: <NutritionCard /> }],
-    column4: [{ id: "4", content: <WeightCard /> }],
-    column5: [{ id: "5", content: <HeartRate /> }],
-    column6: [{ id: "6", content: <WaterCard /> }],
-    column7: [{ id: "7", content: <ProposedWorkouts /> }],
-  });
-  const [activeCard, setActiveCard] = useState<Card | null>(null);
+export default function DraggableCards() {
+  const [cards, setCards] = useState<Card[]>(initialCards);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const swapyInstance = useRef<any>(null);
 
-  const handleDragStart = (event: DragStartEvent) => {
-    const { active } = event;
-    const activeId = active.id as string;
-    const [columnId, cardId] = activeId.split("-");
-    const card = columns[columnId].find((c) => c.id === cardId);
-    if (card) setActiveCard(card);
-  };
+  useEffect(() => {
+    if (containerRef.current) {
+      swapyInstance.current = createSwapy(containerRef.current);
 
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { active, over } = event;
-    const activeId = active.id as string;
-    if (!over) return;
+      swapyInstance.current.onSwap(
+        ({ from, to }: { from: string; to: string }) => {
+          setCards((prevCards) => {
+            const fromIndex = prevCards.findIndex((c) => c.id === from);
+            const toIndex = prevCards.findIndex((c) => c.id === to);
 
-    const [fromColumnId, cardId] = activeId.split("-");
-    const toColumnId = over.id;
+            if (fromIndex === -1 || toIndex === -1) return prevCards;
 
-    if (fromColumnId === toColumnId) return; // No movement
+            const updatedCards = [...prevCards];
+            const [movedItem] = updatedCards.splice(fromIndex, 1);
+            updatedCards.splice(toIndex, 0, movedItem);
 
-    const fromColumn = columns[fromColumnId];
-    const toColumn = columns[toColumnId];
-
-    const card = fromColumn.find((c) => c.id === cardId);
-    if (!card) return;
-
-    const updatedFromColumn = fromColumn.filter((c) => c.id !== cardId);
-
-    const swappedCard = toColumn.shift();
-
-    const updatedToColumn = [card, ...toColumn];
-
-    if (swappedCard) {
-      updatedFromColumn.unshift(swappedCard);
+            return updatedCards;
+          });
+        }
+      );
     }
 
-    setColumns((prev) => ({
-      ...prev,
-      [fromColumnId]: updatedFromColumn,
-      [toColumnId]: updatedToColumn,
-    }));
-
-    setActiveCard(null);
-
-    // TODO: Save state of layout to database
-  };
+    return () => {
+      swapyInstance.current?.destroy();
+    };
+  }, []);
 
   return (
-    <div className="w-full">
-      <DndContext
-        collisionDetection={closestCenter}
-        onDragStart={handleDragStart}
-        onDragEnd={handleDragEnd}
-      >
-        <div className="grid gap-5 mx-5 sm:grid-cols-2 sm:mx-8 lg:grid-cols-3 2xl:grid-cols-4 2xl:mx-24">
-          {Object.keys(columns).map((columnId) => (
-            <DroppableColumn key={columnId} id={columnId}>
-              <SortableContext
-                id={columnId}
-                items={columns[columnId].map(
-                  (card) => `${columnId}-${card.id}`
-                )}
-                strategy={rectSortingStrategy}
-              >
-                {columns[columnId].map((card) => (
-                  <div className="relative w-full h-full" key={card.id}>
-                    <DraggableCard
-                      id={`${columnId}-${card.id}`}
-                      className="h-full w-full"
-                    >
-                      {card.content}
-                    </DraggableCard>
-                    <div className="w-full h-full absolute top-0 left-0 border-2 border-dashed border-sidebar-border rounded-lg" />
-                  </div>
-                ))}
-              </SortableContext>
-            </DroppableColumn>
-          ))}
+    <div
+      ref={containerRef}
+      className="grid gap-5 mx-5 sm:grid-cols-2 sm:mx-8 lg:grid-cols-3 2xl:grid-cols-4 2xl:mx-24"
+    >
+      {cards.map((card) => (
+        <div key={card.id} data-swapy-slot={card.id} className="relative">
+          <div data-swapy-item={card.id} className="w-full h-full relative">
+            <DraggableCard id={card.id} content={card.content} />
+          </div>
         </div>
-        <DragOverlay>
-          {activeCard ? (
-            <div className="p-5 bg-sidebar/90 border-sidebar-border rounded-lg h-full w-full">
-              {activeCard.content}
-            </div>
-          ) : null}
-        </DragOverlay>
-      </DndContext>
+      ))}
     </div>
   );
-};
-
-const DroppableColumn = ({
-  id,
-  children,
-}: {
-  id: string;
-  children: React.ReactNode;
-}) => {
-  const { setNodeRef } = useDroppable({
-    id,
-  });
-
-  return <div ref={setNodeRef}>{children}</div>;
-};
-
-export default Cards;
+}

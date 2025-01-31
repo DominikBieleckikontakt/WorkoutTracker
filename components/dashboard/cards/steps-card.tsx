@@ -79,7 +79,7 @@ const StepsCard = () => {
           </svg>
 
           {/* Percentage Text */}
-          <div className="absolute grid top-1/2 start-1/2 transform -translate-y-1/2 -translate-x-1/2 ">
+          <div className="absolute grid top-1/2 start-1/2 transform !-translate-y-1/2 -translate-x-1/2 ">
             <Footprints className="mx-auto mb-2 size-12 text-primary" />
             <span className="text-center text-2xl font-bold text-primary">
               {Math.floor(progress)}%
