@@ -21,7 +21,8 @@ const initialCards: Card[] = [
   { id: "7", content: <ProposedWorkouts /> },
 ];
 
-export default function DraggableCards() {
+export default function Cards({ googleFitData }: { googleFitData?: any }) {
+  console.log(googleFitData);
   const [cards, setCards] = useState<Card[]>(initialCards);
   const containerRef = useRef<HTMLDivElement>(null);
   const swapyInstance = useRef<any>(null);

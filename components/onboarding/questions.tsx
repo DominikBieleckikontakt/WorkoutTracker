@@ -15,6 +15,7 @@ import {
 } from "../ui/select";
 import { QuestionsType } from "@/types";
 import { addUserData } from "@/actions/addUserData";
+import { getUser } from "@/actions/getUser";
 
 const questions: QuestionsType[] = [
   {
@@ -62,6 +63,13 @@ const questions: QuestionsType[] = [
     inputType: "",
     schema: z.string().min(1, "Please select your goal."),
   },
+  {
+    question: "What is steps goal?",
+    options: [],
+    isInput: true,
+    inputType: "number",
+    schema: z.number().min(1000, "You should do much more steps."),
+  },
 ];
 
 const StartingQuestions = () => {
@@ -80,9 +88,14 @@ const StartingQuestions = () => {
       router.push("/authentication/login");
     }
 
-    if (!session.user.isNewUser) {
-      router.push("/dashboard");
-    }
+    const redirectExistingUser = async () => {
+      const isNew = (await getUser(session.user.email!)).data.isNewUser;
+      if (!isNew) {
+        router.push("/dashboard");
+      }
+    };
+
+    redirectExistingUser();
   }, [sessionStatus, session, router]);
 
   const handleSubmit = async () => {

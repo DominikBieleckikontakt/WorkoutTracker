@@ -6,8 +6,9 @@ import {
   primaryKey,
   integer,
   serial,
-  varchar,
-  uuid,
+  jsonb,
+  date,
+  unique,
 } from "drizzle-orm/pg-core";
 import type { AdapterAccount } from "next-auth/adapters";
 
@@ -23,6 +24,15 @@ export const users = pgTable("user", {
   subscriptionLevel: text("subscriptionLevel").notNull().default("Basic"),
   isNewUser: boolean("isNewUser").notNull().default(true),
   googleAccessToken: text("googleAccessToken"),
+  googleRefreshToken: text("googleRefreshToken"),
+});
+
+export const userLayouts = pgTable("userLayouts", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  userId: text("userId").notNull().unique(),
+  cardOrder: jsonb("cardOrder").notNull(),
 });
 
 export const userData = pgTable("userData", {
@@ -37,7 +47,69 @@ export const userData = pgTable("userData", {
   age: integer("age").notNull(),
   gender: text("gender").notNull(),
   goal: text("goal").notNull(),
+  stepsGoal: integer("stepsGoal").notNull(),
 });
+
+export const dailyFitnessData = pgTable("dailyFitnessData", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
+  userId: text("userId")
+    .notNull()
+    .unique()
+    .references(() => users.id, { onDelete: "cascade" }),
+  steps: integer("steps"),
+  stepsGoal: integer("stepsGoal").default(10000),
+  sleep: integer("sleep"),
+  burnedCalories: integer("burnedCalories"),
+  burnCaloriesGoal: integer("burnCaloriesGoal"),
+  timeInSport: integer("timeInSport"),
+  lastTraining: text("lastTraining"),
+  carbs: integer("carbs"),
+  carbsGoal: integer("carbsGoal"),
+  fat: integer("fat"),
+  fatGoal: integer("fatGoal"),
+  proteins: integer("proteins"),
+  proteinsGoal: integer("proteinsGoal"),
+  calories: integer("calories"),
+  caloriesGoal: integer("caloriesGoal"),
+  drinkedWater: integer("drinkedWater"),
+  heartRate: integer("heartRate").array(),
+  date: date("date"),
+});
+
+export const fitnessHistory = pgTable(
+  "fitnessHistory",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    userId: text("userId")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    steps: integer("steps"),
+    stepsGoal: integer("stepsGoal"),
+    sleep: integer("sleep"),
+    burnedCalories: integer("burnedCalories"),
+    burnCaloriesGoal: integer("burnCaloriesGoal"),
+    timeInSport: integer("timeInSport"),
+    lastTraining: text("lastTraining"),
+    carbs: integer("carbs"),
+    carbsGoal: integer("carbsGoal"),
+    fat: integer("fat"),
+    fatGoal: integer("fatGoal"),
+    proteins: integer("proteins"),
+    proteinsGoal: integer("proteinsGoal"),
+    calories: integer("calories"),
+    caloriesGoal: integer("caloriesGoal"),
+    drinkedWater: integer("drinkedWater"),
+    heartRate: integer("heartRate").array(),
+    date: date("date"),
+  },
+  (fitnessHistory) => ({
+    uniqueUserDate: unique().on(fitnessHistory.userId, fitnessHistory.date),
+  })
+);
 
 export const accounts = pgTable(
   "account",

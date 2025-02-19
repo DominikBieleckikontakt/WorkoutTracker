@@ -1,11 +1,13 @@
 import React from "react";
-import { getGoogleFitData } from "@/actions/getGoogleFitData";
+import { syncUserData } from "@/lib/server-utils";
 import { getServerSession, Session } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import { getUser } from "@/actions/getUser";
 import { UserType } from "@/types";
 import Cards from "@/components/dashboard/cards";
+import { refreshGoogleToken } from "@/actions/refreshGoogleToken";
+import db from "@/src/db";
 
 const DashboardPage = async () => {
   const session = (await getServerSession(authOptions)) as Session;
@@ -18,13 +20,16 @@ const DashboardPage = async () => {
     redirect("/onboarding");
   }
 
-  let googleFitData;
-  googleFitData = session?.user
-    ? await getGoogleFitData(session.user.email!)
-    : null;
-  console.log(googleFitData);
+  let userData;
 
-  return <Cards googleFitData={googleFitData} />;
+  if (session) {
+    // await syncGoogleFitData(session.user.email!);
+    await syncUserData(session.user.email!);
+  }
+
+  console.log(userData);
+
+  return <Cards />;
 };
 
 export default DashboardPage;

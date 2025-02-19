@@ -1,5 +1,13 @@
 import { z } from "zod";
 
+export type GoogleFitDataArrayType = {
+  dataType: string;
+  dataLabel: string;
+  value: number[];
+  startTime: string;
+  endTime: string;
+};
+
 export type TestimonialsArrayType = {
   content: string;
   userName: string;

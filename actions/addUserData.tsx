@@ -3,7 +3,7 @@
 import db from "@/src/db";
 import { eq } from "drizzle-orm";
 
-import { userData, users } from "@/src/db/schema";
+import { dailyFitnessData, userData, users } from "@/src/db/schema";
 import { UserType } from "@/types";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
@@ -15,9 +15,12 @@ export const addUserData = async (email: string, userFormData: string[]) => {
       where: (users, { eq }) => eq(users.email, email),
     });
 
+    const today = new Date().toISOString().split("T")[0];
     const session = await getServerSession(authOptions);
 
     const { id } = user as UserType;
+
+    const stepsGoal = +userFormData[5];
 
     const newUserData = {
       userId: id,
@@ -26,6 +29,7 @@ export const addUserData = async (email: string, userFormData: string[]) => {
       height: +userFormData[2],
       weight: +userFormData[3],
       goal: userFormData[4],
+      stepsGoal,
     };
 
     // Insert new user data
@@ -36,6 +40,11 @@ export const addUserData = async (email: string, userFormData: string[]) => {
       .update(users)
       .set({ isNewUser: false })
       .where(eq(users.email, email));
+
+    // Create user fitness data
+    await db
+      .insert(dailyFitnessData)
+      .values({ userId: id, stepsGoal, date: today });
 
     session && (session.user.isNewUser = false);
 
