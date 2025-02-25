@@ -2,7 +2,19 @@
 import { Bed, Clock, Dumbbell, Flame } from "lucide-react";
 import React, { useState } from "react";
 
-const TodaysStats = () => {
+const TodaysStats = ({
+  sleepTimeProp,
+  caloriesBurned,
+  caloriesBurnedGoal,
+  timeInSport,
+  lastTraining,
+}: {
+  sleepTimeProp: number;
+  caloriesBurned: number;
+  caloriesBurnedGoal: number;
+  timeInSport: number;
+  lastTraining: string;
+}) => {
   const [sleepTime, setSleepTime] = useState({
     start: "22:00",
     startNumber: 22,

@@ -2,7 +2,13 @@
 import React, { useState, useEffect } from "react";
 import { Footprints } from "lucide-react";
 
-const StepsCard = () => {
+const StepsCard = ({
+  steps,
+  stepsGoal,
+}: {
+  steps: number;
+  stepsGoal: number;
+}) => {
   const [currentSteps, setCurrentSteps] = useState(3500);
   const [goalSteps, setGoalSteps] = useState(10000);
   const [progress, setProgress] = useState(0);

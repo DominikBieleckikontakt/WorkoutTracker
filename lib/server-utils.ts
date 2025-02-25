@@ -3,6 +3,7 @@ import { users, dailyFitnessData, fitnessHistory } from "@/src/db/schema";
 import { and, eq } from "drizzle-orm";
 import { refreshGoogleToken } from "@/actions/refreshGoogleToken";
 import { GoogleFitDataArrayType } from "@/types";
+import { calculateUserData } from "./utils";
 
 export const extractGoogleFitData = (data: any) => {
   if (!data?.bucket || data.bucket.length === 0) {
@@ -65,25 +66,32 @@ export const syncUserData = async (userEmail: string) => {
     where: (fitnessData, { eq }) => and(eq(fitnessData.userId, user.id)),
   });
 
-  const isAlreadyInHistory = await db.query.fitnessHistory.findFirst({
-    where: (fitnessData, { eq }) =>
-      and(eq(fitnessData.userId, user.id), eq(fitnessData.date, today)),
-  });
+  // const isAlreadyInHistory = await db.query.fitnessHistory.findFirst({
+  //   where: (fitnessData, { eq }) =>
+  //     and(eq(fitnessData.userId, user.id), eq(fitnessData.date, today)),
+  // });
+
+  //Check if today's data is already in the history
 
   if (
     todayFitnessData &&
-    todayFitnessData.date !== today &&
-    !isAlreadyInHistory
+    todayFitnessData.date !== today
+    // && !isAlreadyInHistory
   ) {
-    todayFitnessData.id = crypto.randomUUID();
     const { id, date, userId, ...insertData } = todayFitnessData;
+
+    // Add the new data to the fitnessHistory table
+
     await db
       .insert(fitnessHistory)
-      .values(todayFitnessData)
+      .values({ ...todayFitnessData, id: crypto.randomUUID() })
       .onConflictDoUpdate({
         target: [fitnessHistory.userId, fitnessHistory.date],
         set: insertData,
       });
+
+    // Clear the dailyFitnessData table and add a new date
+
     await db
       .update(dailyFitnessData)
       .set({
@@ -182,28 +190,42 @@ export const syncUserData = async (userEmail: string) => {
         });
 
         if (userData) {
+          // Extract data points from the dataset to object like {"Steps": 1000} (dataLabel: value)
+          // To get the data from object use Object["key"], it will return value
+
+          const dataMap = Object.fromEntries(
+            formattedData.data.map((item: GoogleFitDataArrayType) => [
+              item.dataLabel,
+              item.value[0],
+            ])
+          );
+
+          const userCalculatedGoals = calculateUserData(
+            userData.age,
+            userData.height,
+            userData.weight,
+            userData.goal,
+            userData.gender,
+            userData.activityLevel
+          );
+
           await db
             .update(dailyFitnessData)
             .set({
-              steps:
-                formattedData.data.find(
-                  (item: GoogleFitDataArrayType) => item.dataLabel === "Steps"
-                )?.value ?? dailyFitnessData?.steps,
+              steps: dataMap["Steps"] ?? dailyFitnessData?.steps,
               burnedCalories: Math.ceil(
-                formattedData.data.find(
-                  (item: GoogleFitDataArrayType) =>
-                    item.dataLabel === "Calories Burned"
-                )?.value ?? dailyFitnessData?.burnedCalories
+                dataMap["Calories Burned"] ??
+                  dailyFitnessData?.burnedCalories ??
+                  0
               ),
               heartRate:
-                formattedData.data.find(
-                  (item: GoogleFitDataArrayType) =>
-                    item.dataLabel === "Heart Rate (BPM)"
-                )?.value ?? dailyFitnessData?.heartRate,
-              sleep:
-                formattedData.data.find(
-                  (item: GoogleFitDataArrayType) => item.dataLabel === "Sleep"
-                )?.value ?? dailyFitnessData?.sleep,
+                dataMap["Heart Rate (BPM)"] ?? dailyFitnessData?.heartRate,
+              sleep: dataMap["Sleep"] ?? dailyFitnessData?.sleep,
+              burnCaloriesGoal: Math.ceil(userCalculatedGoals.burnCaloriesGoal),
+              caloriesGoal: Math.ceil(userCalculatedGoals.caloriesGoal),
+              proteinsGoal: Math.ceil(userCalculatedGoals.proteinsGoal),
+              fatGoal: Math.ceil(userCalculatedGoals.fatGoal),
+              carbsGoal: Math.ceil(userCalculatedGoals.carbsGoal),
             })
             .where(
               and(
@@ -214,7 +236,7 @@ export const syncUserData = async (userEmail: string) => {
         }
       }
     } catch (error) {
-      throw new Error(error as string);
+      throw new Error("Something went wrong");
     }
 
     return {
@@ -222,4 +244,20 @@ export const syncUserData = async (userEmail: string) => {
       data: formattedData,
     };
   }
+};
+
+export const getTodayFitnessData = async (userEmail: string) => {
+  const user = await db.query.users.findFirst({
+    where: (userData, { eq }) => eq(userData.email, userEmail),
+  });
+
+  if (!user) {
+    throw new Error("User not found!");
+  }
+
+  const todayFitnessData = await db.query.dailyFitnessData.findFirst({
+    where: (dailyFitnessData, { eq }) => eq(dailyFitnessData.userId, user.id),
+  });
+
+  return todayFitnessData;
 };

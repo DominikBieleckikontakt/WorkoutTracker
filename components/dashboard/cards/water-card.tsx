@@ -8,7 +8,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-const WaterCard = () => {
+const WaterCard = ({ drinkedWater }: { drinkedWater: number }) => {
   const [glasses, setGlasses] = useState<number[]>([]);
   const [mlPerGlass, setMlPerGlass] = useState(250);
 

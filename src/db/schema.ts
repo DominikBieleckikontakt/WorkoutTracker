@@ -46,6 +46,7 @@ export const userData = pgTable("userData", {
   height: serial("height").notNull(),
   age: integer("age").notNull(),
   gender: text("gender").notNull(),
+  activityLevel: text("activityLevel").notNull(),
   goal: text("goal").notNull(),
   stepsGoal: integer("stepsGoal").notNull(),
 });

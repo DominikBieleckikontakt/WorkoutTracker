@@ -30,7 +30,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-const HeartRate = () => {
+const HeartRate = ({ heartRate }: { heartRate: number[] }) => {
   return (
     <div className="h-full space-y-5">
       <div>

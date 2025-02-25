@@ -30,6 +30,7 @@ export const addUserData = async (email: string, userFormData: string[]) => {
       weight: +userFormData[3],
       goal: userFormData[4],
       stepsGoal,
+      activityLevel: userFormData[6],
     };
 
     // Insert new user data

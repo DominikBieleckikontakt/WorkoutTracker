@@ -8,6 +8,29 @@ export type GoogleFitDataArrayType = {
   endTime: string;
 };
 
+export type TodayGoogleFitData = {
+  id: string;
+  userId: string;
+  steps: number | null;
+  stepsGoal: number | null;
+  sleep: number | null;
+  burnedCalories: number | null;
+  burnCaloriesGoal: number | null;
+  timeInSport: number | null;
+  lastTraining: string | null;
+  carbs: number | null;
+  carbsGoal: number | null;
+  fat: number | null;
+  fatGoal: number | null;
+  proteins: number | null;
+  proteinsGoal: number | null;
+  calories: number | null;
+  caloriesGoal: number | null;
+  drinkedWater: number | null;
+  heartRate: number[] | null;
+  date: string | null;
+};
+
 export type TestimonialsArrayType = {
   content: string;
   userName: string;

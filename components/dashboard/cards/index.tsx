@@ -9,21 +9,60 @@ import HeartRate from "./heart-rate";
 import WaterCard from "./water-card";
 import ProposedWorkouts from "./proposed-workouts";
 import DraggableCard from "../draggable-card";
-import { Card } from "@/types";
+import { Card, TodayGoogleFitData } from "@/types";
 
-const initialCards: Card[] = [
-  { id: "1", content: <StepsCard /> },
-  { id: "2", content: <TodaysStats /> },
-  { id: "3", content: <NutritionCard /> },
+const initialCards = (googleFitData: TodayGoogleFitData) => [
+  {
+    id: "1",
+    content: (
+      <StepsCard
+        steps={googleFitData.steps!}
+        stepsGoal={googleFitData.stepsGoal!}
+      />
+    ),
+  },
+  {
+    id: "2",
+    content: (
+      <TodaysStats
+        sleepTimeProp={googleFitData.sleep!}
+        caloriesBurned={googleFitData.burnedCalories!}
+        caloriesBurnedGoal={googleFitData.burnCaloriesGoal!}
+        timeInSport={googleFitData.timeInSport!}
+        lastTraining={googleFitData.lastTraining!}
+      />
+    ),
+  },
+  {
+    id: "3",
+    content: (
+      <NutritionCard
+        carbs={googleFitData.carbs!}
+        fat={googleFitData.fat!}
+        proteins={googleFitData.proteins!}
+        carbsGoal={googleFitData.carbsGoal!}
+        fatGoal={googleFitData.fatGoal!}
+        proteinsGoal={googleFitData.proteinsGoal!}
+        caloriesEaten={googleFitData.calories!}
+        caloriesEatenGoal={googleFitData.caloriesGoal!}
+      />
+    ),
+  },
   { id: "4", content: <WeightCard /> },
-  { id: "5", content: <HeartRate /> },
-  { id: "6", content: <WaterCard /> },
+  { id: "5", content: <HeartRate heartRate={googleFitData.heartRate!} /> },
+  {
+    id: "6",
+    content: <WaterCard drinkedWater={googleFitData.drinkedWater!} />,
+  },
   { id: "7", content: <ProposedWorkouts /> },
 ];
 
-export default function Cards({ googleFitData }: { googleFitData?: any }) {
-  console.log(googleFitData);
-  const [cards, setCards] = useState<Card[]>(initialCards);
+export default function Cards({
+  googleFitData,
+}: {
+  googleFitData: TodayGoogleFitData;
+}) {
+  const [cards, setCards] = useState<Card[]>(initialCards(googleFitData));
   const containerRef = useRef<HTMLDivElement>(null);
   const swapyInstance = useRef<any>(null);
 

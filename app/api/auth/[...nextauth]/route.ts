@@ -16,6 +16,8 @@ export const authOptions = {
         params: {
           scope:
             "openid https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/fitness.activity.read https://www.googleapis.com/auth/fitness.body.read https://www.googleapis.com/auth/fitness.heart_rate.read https://www.googleapis.com/auth/fitness.location.read https://www.googleapis.com/auth/fitness.nutrition.read https://www.googleapis.com/auth/fitness.sleep.read",
+          access_type: "offline", // Add this line
+          prompt: "consent", // Add this line to ensure the refresh token is returned
         },
       },
     }),

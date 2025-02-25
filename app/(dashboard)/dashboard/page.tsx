@@ -1,16 +1,17 @@
 import React from "react";
-import { syncUserData } from "@/lib/server-utils";
+import { getTodayFitnessData, syncUserData } from "@/lib/server-utils";
 import { getServerSession, Session } from "next-auth";
+import db from "@/src/db";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+
 import { redirect } from "next/navigation";
 import { getUser } from "@/actions/getUser";
-import { UserType } from "@/types";
+import { TodayGoogleFitData, UserType } from "@/types";
 import Cards from "@/components/dashboard/cards";
-import { refreshGoogleToken } from "@/actions/refreshGoogleToken";
-import db from "@/src/db";
 
 const DashboardPage = async () => {
   const session = (await getServerSession(authOptions)) as Session;
+  let todayFitnessUserData: TodayGoogleFitData | undefined;
 
   const user: { message: string; data: UserType } = await getUser(
     session.user.email!
@@ -20,16 +21,12 @@ const DashboardPage = async () => {
     redirect("/onboarding");
   }
 
-  let userData;
-
   if (session) {
-    // await syncGoogleFitData(session.user.email!);
     await syncUserData(session.user.email!);
+    todayFitnessUserData = await getTodayFitnessData(session.user.email!);
   }
 
-  console.log(userData);
-
-  return <Cards />;
+  return <Cards googleFitData={todayFitnessUserData!} />;
 };
 
 export default DashboardPage;

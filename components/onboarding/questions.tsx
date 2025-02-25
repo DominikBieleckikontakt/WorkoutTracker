@@ -64,11 +64,24 @@ const questions: QuestionsType[] = [
     schema: z.string().min(1, "Please select your goal."),
   },
   {
-    question: "What is steps goal?",
+    question: "What is your steps goal?",
     options: [],
     isInput: true,
     inputType: "number",
     schema: z.number().min(1000, "You should do much more steps."),
+  },
+  {
+    question: "What is your activity level?",
+    options: [
+      "Sedentary (No trainings)",
+      "Light (1-3 trainings per week)",
+      "Moderate (3-5 trainings per week)",
+      "Active (5 - 6 trainings per week)",
+      "Very Active (Athlete)",
+    ],
+    isInput: false,
+    inputType: "",
+    schema: z.string().min(1, "Please select your activity level."),
   },
 ];
 
@@ -127,6 +140,7 @@ const StartingQuestions = () => {
     try {
       const finalAnswers = [...answers, answer];
       const status = await addUserData(session.user.email, finalAnswers);
+      console.log(status);
       if (status.status === "success") {
         router.push("/dashboard");
       }
