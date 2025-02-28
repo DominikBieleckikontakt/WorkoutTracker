@@ -3,6 +3,7 @@
 import db from "@/src/db";
 import { users } from "@/src/db/schema";
 import { eq } from "drizzle-orm";
+import { cookies } from "next/headers";
 
 export const refreshGoogleToken = async (userEmail: string) => {
   const user = await db.query.users.findFirst({
@@ -10,6 +11,8 @@ export const refreshGoogleToken = async (userEmail: string) => {
   });
 
   if (!user?.googleRefreshToken) {
+    cookies().delete("next-auth.session-token");
+    cookies().delete("next-auth.csrf-token");
     throw new Error("Missing refresh token!");
   }
 

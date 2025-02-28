@@ -21,10 +21,10 @@ const TodaysStats = ({
     end: "8:00",
     endNumber: 8,
   });
-  const [burnedCalories, setBurnedCalories] = useState(234);
-  const [caloriesGoal, setCaloriesGoal] = useState(500);
-  const [timeSpent, setTimeSpent] = useState(50);
-  const [lastTrainingName, setLastTrainingName] = useState("Push-ups");
+  const [burnedCalories, setBurnedCalories] = useState(caloriesBurned ?? 0);
+  const [caloriesGoal, setCaloriesGoal] = useState(caloriesBurnedGoal ?? 0);
+  const [timeSpent, setTimeSpent] = useState(timeInSport ?? 0);
+  const [lastTrainingName, setLastTrainingName] = useState(lastTraining ?? "-");
 
   const calcedSleepTime =
     sleepTime.startNumber > sleepTime.endNumber

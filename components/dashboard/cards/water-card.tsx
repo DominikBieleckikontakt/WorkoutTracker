@@ -9,20 +9,22 @@ import {
 } from "@/components/ui/tooltip";
 
 const WaterCard = ({ drinkedWater }: { drinkedWater: number }) => {
-  const [glasses, setGlasses] = useState<number[]>([]);
   const [mlPerGlass, setMlPerGlass] = useState(250);
+  const [glasses, setGlasses] = useState<number>(
+    drinkedWater ? drinkedWater / mlPerGlass : 0
+  );
 
   const [isClicked, setIsClicked] = useState(false);
 
   const addGlass = () => {
-    setGlasses((prev) => [...prev, prev.length + 1]);
+    setGlasses((prev) => prev + 1);
 
     setIsClicked(true);
     setTimeout(() => setIsClicked(false), 150);
   };
 
   const removeGlass = () => {
-    setGlasses((prev) => prev.slice(0, prev.length - 1));
+    setGlasses((prev) => prev - 1);
   };
 
   return (
@@ -38,7 +40,7 @@ const WaterCard = ({ drinkedWater }: { drinkedWater: number }) => {
           <GlassWater className="size-10 text-foreground/30" />
           <Plus className="absolute w-6 h-6 text-black dark:invert" />
         </button>
-        {glasses.map((_, index) => (
+        {Array.from({ length: glasses }).map((_, index) => (
           <TooltipProvider delayDuration={100}>
             <Tooltip>
               <TooltipTrigger>

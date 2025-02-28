@@ -9,12 +9,12 @@ const StepsCard = ({
   steps: number;
   stepsGoal: number;
 }) => {
-  const [currentSteps, setCurrentSteps] = useState(3500);
-  const [goalSteps, setGoalSteps] = useState(10000);
+  const [currentSteps, setCurrentSteps] = useState(steps ?? 0);
+  const [goalSteps, setGoalSteps] = useState(stepsGoal ?? 10000);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    const targetProgress = Math.min((currentSteps / goalSteps) * 100, 100);
+    const targetProgress = Math.min((currentSteps / goalSteps) * 100);
     let currentProgress = 0;
 
     const interval = setInterval(() => {
@@ -76,7 +76,7 @@ const StepsCard = ({
               className="stroke-current text-primary"
               strokeWidth="2"
               strokeDasharray="100"
-              strokeDashoffset={`${100 - progress}`}
+              strokeDashoffset={`${progress <= 100 ? 100 - progress : 0}`}
               strokeLinecap="round"
               style={{
                 transition: "stroke-dashoffset 0.1s linear",

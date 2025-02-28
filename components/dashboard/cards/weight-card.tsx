@@ -1,9 +1,15 @@
 "use client";
 import React, { useState } from "react";
 
-const WeightCard = () => {
+const WeightCard = ({
+  userWeight,
+  userHeight,
+}: {
+  userWeight: number;
+  userHeight: number;
+}) => {
   const [weightLost, setWeightLost] = useState(5);
-  const [weight, setWeight] = useState(85);
+  const [weight, setWeight] = useState(userWeight);
   const [weightGoal, setWeightGoal] = useState(70);
   const [timeLeft, setTimeLeft] = useState("2 months");
 

@@ -11,7 +11,11 @@ import ProposedWorkouts from "./proposed-workouts";
 import DraggableCard from "../draggable-card";
 import { Card, TodayGoogleFitData } from "@/types";
 
-const initialCards = (googleFitData: TodayGoogleFitData) => [
+const initialCards = (
+  googleFitData: TodayGoogleFitData,
+  weight: number,
+  height: number
+) => [
   {
     id: "1",
     content: (
@@ -48,7 +52,7 @@ const initialCards = (googleFitData: TodayGoogleFitData) => [
       />
     ),
   },
-  { id: "4", content: <WeightCard /> },
+  { id: "4", content: <WeightCard userWeight={weight} userHeight={height} /> },
   { id: "5", content: <HeartRate heartRate={googleFitData.heartRate!} /> },
   {
     id: "6",
@@ -59,10 +63,16 @@ const initialCards = (googleFitData: TodayGoogleFitData) => [
 
 export default function Cards({
   googleFitData,
+  height,
+  weight,
 }: {
   googleFitData: TodayGoogleFitData;
+  height: number;
+  weight: number;
 }) {
-  const [cards, setCards] = useState<Card[]>(initialCards(googleFitData));
+  const [cards, setCards] = useState<Card[]>(
+    initialCards(googleFitData, weight, height)
+  );
   const containerRef = useRef<HTMLDivElement>(null);
   const swapyInstance = useRef<any>(null);
 
